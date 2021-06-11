@@ -31,7 +31,7 @@
         grid-gap: 0.5rem;
         
         .option{
-            background-color: $back1;
+            // background-color: $back1;
             @include center-center();
             border-radius: 0.5rem;
             padding: 0.3rem;
@@ -40,9 +40,9 @@
                 width: 80%;
                 height: auto;
                 transition: filter 0.5s;
-                &:hover{
-                    filter: brightness(0) invert(1);  
-                }
+                // &:hover{
+                //     filter: brightness(0) invert(1);  
+                // }
             }
         }
     }

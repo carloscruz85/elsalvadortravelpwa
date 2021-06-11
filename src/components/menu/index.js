@@ -28,12 +28,13 @@ function Menu() {
 
     return (
         <div className="menu">
+          <div onClick={ () => { dispatch({ type:'CHANGE_LANG' }) } } className=" text" >
+                { lang === 'es' ? 'EN' : 'ES' }
+            </div>
             <Link to={'/'} className="basic-button" >
                 <img src={House} alt="home"/>
             </Link>
-            <div onClick={ () => { dispatch({ type:'CHANGE_LANG' }) } } className=" text" >
-                { lang === 'es' ? 'EN' : 'ES' }
-            </div>
+  
              {
             globalTerms.lenght !== 0 ?
             globalTerms
