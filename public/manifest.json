@@ -1,6 +1,6 @@
 {
-  "short_name": "Waves Searcher",
-  "name": "Waves Searcher - Surfcity El Salvador",
+  "short_name": "El Salvador Travel",
+  "name": "El Salvador",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +20,6 @@
   ],
   "start_url": "./index.html",
   "display": "standalone",
-  "theme_color": "#0E1621",
-  "background_color": "#00C8FF"
+  "theme_color": "#ffffff",
+  "background_color": "#004c9a"
 }
