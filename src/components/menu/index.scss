@@ -9,7 +9,7 @@ $tol : 1rem;
     @include multi( width, 15%, 15%, 6%, 7% );
     // border: 1px solid red;
     .basic-button{
-        background-color: $back1 !important;
+        // background-color: $back1 !important;
         cursor: pointer;
         @include center-center();
         padding:   math.div($tol, 2);
@@ -18,6 +18,7 @@ $tol : 1rem;
         padding-bottom: 100%;
         margin: $tol 0;
         position: relative;
+        border: 1px solid $cyan;
         img{
             width: 60%;
             height: auto;
@@ -26,12 +27,12 @@ $tol : 1rem;
             // display: none;
             transition: filter 0.5s;
             &:hover{
-                filter: brightness(0) invert(1);  
+                // filter: brightness(0) invert(1);
             }
         }
     }
     .text{
-        background-color: $back1 !important;
+        // background-color: $back1 !important;
         color: $cyan;
         text-transform: uppercase;
          @include center-center();

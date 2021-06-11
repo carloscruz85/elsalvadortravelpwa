@@ -3,23 +3,25 @@
 .list{
     display: grid;
     @include multi(grid-template-columns, 1fr 1fr, 1fr 1fr 1fr, 1fr 1fr 1fr 1fr 1fr, 1fr 1fr 1fr 1fr 1fr 1fr);
-    grid-gap: 1rem;
+    grid-gap: 0.5rem;
     .destination{
         border-radius: 0.5rem;
         background-color: $back1;
         padding: 0.5rem;
         text-align: center;
-        padding: 1rem 0;
+        padding: 1rem 0.25rem;
         text-decoration: none !important;
         font-size: 1.2rem;
+        // padding: 0.25rem;
+        // border: 1px solid $cyan;
         a{
-            color: white !important;
+            color: $cyan !important;
         }
         
         *{
             margin: 0 !important;
             line-height: 1.5rem;
-            color: white;
+            color: $cyan;
             
         }
         .destination-title{
