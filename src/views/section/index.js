@@ -8,15 +8,29 @@ const Section = (props) => {
   const { globalData, dispatch } = useContext(DataContext)
   const [childs, setChilds] = useState( [] )
   const [destinations, setDestinations] = useState([])
-  useEffect(() => {
-
-    if( globalData.terms[props.match.params.section] ){
-      setChilds(Object.entries(globalData.terms[props.match.params.section].childs))
-      setDestinations(  globalData.filtered )
-    }
-    
+  useEffect(() => {    
     window.scrollTo(0, 0);
-    
+    // console.log(globalData.terms[props.match.params.section]);
+    // console.log(globalData.destinations[0]);
+
+    setDestinations( globalData.destinations.filter( (d) => {
+      // console.log(d[1].terms);
+      let matches = 0;
+      matches = d[1].terms.reduce( (total, current ) => {
+        // console.log(current.term_id, globalData.terms[props.match.params.section].id);
+        if( current.term_id === globalData.terms[props.match.params.section].id )
+        return total + 1
+        else{
+          return total
+        }
+      }, 0 );
+
+      // console.log('results',matches);
+      if( matches )
+      return d
+      else return null
+    } ) )
+
   }, [globalData, props.match.params.section]);
 
   // const data = JSON.parse(window.localStorage.getItem('ws-data'))
@@ -29,23 +43,20 @@ const Section = (props) => {
     <div className="container">
         {  globalData.terms[props.match.params.section] ? 
         <div className="title">{ globalData.lang === 'en'  ?  globalData.terms[props.match.params.section]['title-en'] : globalData.terms[props.match.params.section]['title-es'] }</div> : null  }
-
-        <div className="options">
-          {
-          childs.length !== 0 ?
-          childs.map( (child, i) => {
-            // console.log(child[1]);
-            return(
-              <div 
-              className="option"
-              key={i}
-              onClick={  ()=> { dispatch({ type:'UPDATE_VALUE_TERMS', term: props.match.params.section, childId: child[0]  }) }}>
-                { child[1].value ? <i className="fa fa-square"></i> : <i className="fa fa-square-o"></i> } {child[1]['title-'+globalData.lang]}
-                </div>
+<div className="list">
+        {
+          destinations.map( (d, i) => {
+            return (
+              <Link to={`/destination/${d[1].title.replace( ' ', '_' ).toLowerCase()}`} className="destination" key={i}>
+              <div  className="destination-title"
+              dangerouslySetInnerHTML={{
+              __html:  `${d[1].title}` 
+              }}></div>              
+          </Link>
             )
-          } ): null }
+          } )
+        }
         </div>
-         { destinations.length ? <Link to='/list' className="button" >  { destinations.length } { globalData.lang === 'es' ? ' resultados, click para ver' : ' results click to see' }  </Link> : <div className="button">No results</div> }  
         
     </div>
   );

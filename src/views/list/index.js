@@ -18,8 +18,7 @@ function List() {
                         return (
                             <Link to={`/destination/${destination[1].title.replace( ' ', '_' ).toLowerCase()}`} className="destination" key={i}>
                                 <div className="destination-title">{destination[1].title}</div>
-                                <div className="distance">12km</div>
-                                <div className="temp">30°C / 80°F</div>
+    
                             </Link>
                         )
                     } )
