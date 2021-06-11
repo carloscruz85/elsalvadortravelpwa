@@ -30,7 +30,7 @@ function App() {
     if( data === null ){
       // setLoader({ ...loader, show: true })
       axios
-    .get('https://elsalvador.travel/wp-json/ccruz85/v2/wavessearcher/')
+    .get('https://elsalvador.travel/wp-json/ccruz85/v2/estpwa/')
       .then(function (response) {
         // console.log(response.data);
         window.localStorage.setItem('ws-data', JSON.stringify(response.data));
