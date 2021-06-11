@@ -1,0 +1,97 @@
+@import '../../styles/index.scss';
+
+.destination{
+    .destination-img{
+        width: 100%;
+        height: auto;
+        border-radius: 0.5rem
+    }
+    .content{
+        h1,h2,h3{
+            font-size: 1.2rem;
+            color: $cyan;
+        
+        }
+        background-color: $back1;
+        padding: 1rem;
+        margin-top: 1rem;
+        line-height: 1.5rem;
+        // letter-spacing: 0.05rem;
+        // text-align: center;
+        border-radius: 1rem;
+        p, div{
+            margin: 1rem 0;
+        }
+    }
+    .options{
+        display: grid;
+        
+        align-items: flex-end;
+        @include multi( grid-template-columns, repeat(5,1fr), repeat(5,1fr), repeat(14,1fr), repeat(14,1fr) );
+        grid-gap: 0.5rem;
+        
+        .option{
+            background-color: $back1;
+            @include center-center();
+            border-radius: 0.5rem;
+            padding: 0.3rem;
+            cursor: pointer;
+            img{
+                width: 80%;
+                height: auto;
+                transition: filter 0.5s;
+                &:hover{
+                    filter: brightness(0) invert(1);  
+                }
+            }
+        }
+    }
+    .gallery{
+        margin: 1rem 0;
+        overflow: hidden;
+        position: relative;
+        .left, .right{
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 9999;
+            height: 100%;
+            @include center-center();
+            text-shadow: 0px 0px 15px #000;
+            padding: 1rem;
+            // border: 1px solid #dedede;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            width: 20%;
+            // background-image: linear-gradient(to left, rgba(0,0,0,0.8) , transparent);
+
+            i{
+                color: white !important;
+                font-size: 2rem;
+                font-weight: bold;
+            }
+            &:hover{
+                // background-color: rgba(0,0,0,0.8);
+            }
+        }
+        .left{
+            left: 0 !important;
+            // background-image: linear-gradient(to right, rgba(0,0,0,0.8) , transparent);
+        }
+
+        .img-container{
+            // width: 100%;
+            position: relative;
+            left: 0%;
+            display: flex;
+            flex-flow: row nowrap;
+            transition: left 1s;
+            img{
+                width: 100%;
+                @include multi(  height, 30vh, 25vh, 40vh, 50vh );
+                object-fit: cover;
+            }
+        }
+    }
+  
+}

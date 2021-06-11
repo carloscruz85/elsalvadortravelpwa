@@ -1,0 +1,79 @@
+@import "./vars.scss";
+@import "./functions.scss";
+
+* {
+    box-sizing: border-box !important;
+  }
+  body{
+    font-family: 'Baloo Tammudu 2', cursive;
+    background-color: $back2;
+    color: white;
+    font-size: 1.5rem;   
+  }
+  
+  .container{
+    // border: 1px solid red;
+    position: absolute;
+    @include multi( width, 70%, 77%, 88%, 88% );
+    @include multi(left, 25%, 20%, 10%, 10%  );
+    top: 1rem;
+    line-height: 1.5rem;
+    // padding: 0.2rem;
+    .title{
+      // text-transform: uppercase;
+     @include multi(   font-size, 2rem, 2rem, 2rem, 4rem );
+      // font-weight: bold;
+      text-align: center;
+      line-height: 2.5rem;
+      font-family: surfcity !important;
+      @include multi( margin, 0,0, 1.5rem 0, 3rem 0 );
+      // margin: 2.5rem 0;
+    }
+  }
+
+.button{
+    background-color: $back1;
+    color: $cyan;
+    // display: inline-block;
+    padding: 0.2rem 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: color 0.2s, background-color 0.2s;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    margin: 1rem 0 !important;
+    font-size: 1.2rem;
+    &:hover{
+        color:$back1;
+        background-color: $cyan;
+    }
+}
+
+.logo-container{
+  @include center-center();
+  // background-color: red;
+  margin-bottom: 2rem;
+  .logo{
+    @include multi(width, 76%, 75%, 30%, 20%);
+    height: auto;
+    // position: relative;
+    // left: 12% ;
+}
+}
+
+
+
+h1, h2, h3 {
+  font-family: surfcity !important;
+}
+
+.basic-p{
+  font-size: 1.3rem !important;
+  line-height: 1.6rem !important;
+}
+
+.liquid{
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+}

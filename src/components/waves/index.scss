@@ -1,0 +1,38 @@
+@import '../../styles/index.scss';
+
+.barras, .numbers{
+    margin-top: 2rem;
+    display: flex;
+    flex-flow: row nowrap;
+    // align-content: space-around;
+    justify-content: space-around;
+    // background-color: $back1;
+    .barra{
+        width: 12px;
+        height: 50px;
+        border-radius: 10px;
+        margin: 2px;
+        background-image: linear-gradient(to top, $cyan ,white);
+        
+        position: relative;
+
+    }
+}
+
+.terms{
+  margin-top: 2rem;
+  .term{
+    .title-term{
+      
+    }
+  }
+}
+
+@keyframes MoveUpDown {
+    0%, 100% {
+      bottom: 0;
+    }
+    50% {
+      bottom: 20px;
+    }
+  }

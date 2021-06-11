@@ -1,0 +1,36 @@
+@import '../../styles/index.scss';
+
+.list{
+    display: grid;
+    @include multi(grid-template-columns, 1fr 1fr, 1fr 1fr 1fr, 1fr 1fr 1fr 1fr 1fr, 1fr 1fr 1fr 1fr 1fr 1fr);
+    grid-gap: 1rem;
+    .destination{
+        border-radius: 0.5rem;
+        background-color: $back1;
+        padding: 0.5rem;
+        text-align: center;
+        padding: 1rem 0;
+        text-decoration: none !important;
+        font-size: 1.2rem;
+        a{
+            color: white !important;
+        }
+        
+        *{
+            margin: 0 !important;
+            line-height: 1.5rem;
+            color: white;
+            
+        }
+        .destination-title{
+          
+            font-family: surfcity !important;
+            margin-bottom: 0.8rem !important;
+           
+        }
+        .distance{
+            color: $cyan;
+        }
+        
+    }
+}

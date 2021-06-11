@@ -1,0 +1,35 @@
+@import '../../styles/index.scss';
+
+$vel :  1s;
+$tol : 80px;
+.loader-container{
+    background-color: $back1;
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+    @include center-center();
+    .aro { 
+    @include back-image();
+     background-image: url(../../assets/images/loader.png); 
+     width: $tol;
+     height: $tol;
+     -webkit-animation: rotating $vel linear infinite;
+     -moz-animation: rotating $vel linear infinite;
+     -ms-animation: rotating $vel linear infinite;
+     -o-animation: rotating $vel linear infinite;
+     animation: rotating $vel linear infinite;
+    }
+    img{
+        width: $tol * 0.6 !important;
+        height: $tol * 0.6 !important;
+        position: absolute;
+    }
+    .msg{
+        position: absolute;
+        bottom: 0;
+        font-size: 1rem;
+    }
+}
