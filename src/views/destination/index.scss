@@ -24,22 +24,42 @@
         }
     }
     .options{
-        display: grid;
-        
-        align-items: flex-end;
-        @include multi( grid-template-columns, repeat(5,1fr), repeat(5,1fr), repeat(14,1fr), repeat(14,1fr) );
-        grid-gap: 0.5rem;
-        
+        // border: 1px solid red;
+        display: flex;
+        flex-flow: row-reverse nowrap;
+        // width: 100%;
+        // display: grid;
+        // flex-flow: row-reverse;
+        // align-items: flex-end;
+        // @include multi( grid-template-columns, repeat(5,1fr), repeat(5,1fr), repeat(14,1fr), repeat(14,1fr) );
+        // grid-gap: 0.5rem;
+        // background-color: $back1;
+        margin: 0;
+        padding: 0;
         .option{
+            @include multi( width, 13%, 13%, 5%, 3% );
             // background-color: $back1;
-            @include center-center();
+            
+            // @include center-center();
+            // border-radius: 0.5rem;
+            // padding: 0.3rem;
+            // cursor: pointer;
+            margin: 0;
+            // text-align: center;
+            // border: 1px solid red;
+            padding: 0.025rem;
             border-radius: 0.5rem;
-            padding: 0.3rem;
+            margin: 0 0.25rem;
             cursor: pointer;
+            border: 1px solid $cyan;
             img{
-                width: 80%;
-                height: auto;
-                transition: filter 0.5s;
+                
+                width: 100%;
+                // @include center-center();
+                // border: 1px solid red;
+                
+                // height: auto;
+                // transition: filter 0.5s;
                 // &:hover{
                 //     filter: brightness(0) invert(1);  
                 // }
@@ -47,7 +67,7 @@
         }
     }
     .gallery{
-        margin: 1rem 0;
+        margin-bottom: 1rem;
         overflow: hidden;
         position: relative;
         .left, .right{
@@ -70,9 +90,9 @@
                 font-size: 2rem;
                 font-weight: bold;
             }
-            &:hover{
-                // background-color: rgba(0,0,0,0.8);
-            }
+            // &:hover{
+            //     // background-color: rgba(0,0,0,0.8);
+            // }
         }
         .left{
             left: 0 !important;
@@ -87,9 +107,10 @@
             flex-flow: row nowrap;
             transition: left 1s;
             img{
-                width: 100%;
+                width: 100% !important;
                 @include multi(  height, 30vh, 25vh, 40vh, 50vh );
                 object-fit: cover;
+                border-radius: 1rem;
             }
         }
     }
