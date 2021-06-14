@@ -1,6 +1,6 @@
 import React from 'react'
 import './index.scss'
-import Logo from '../../assets/images/surf-city-circle.png'
+import Logo from '../../assets/images/woman.png'
 
 function Loader(props) {
     // console.log(props);

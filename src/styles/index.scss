@@ -14,7 +14,7 @@
   .container{
     // border: 1px solid red;
     position: absolute;
-    @include multi( width, 60%, 77%, 88%, 88% );
+    @include multi( width, 73%, 77%, 88%, 88% );
     @include multi(left, 20%, 20%, 10%, 10%  );
     top: 1rem;
     line-height: 1.5rem;
