@@ -14,15 +14,15 @@
   .container{
     // border: 1px solid red;
     position: absolute;
-    @include multi( width, 70%, 77%, 88%, 88% );
-    @include multi(left, 25%, 20%, 10%, 10%  );
+    @include multi( width, 73%, 77%, 88%, 88% );
+    @include multi(left, 20%, 20%, 10%, 10%  );
     top: 1rem;
     line-height: 1.5rem;
     // padding: 0.2rem;
     .title{
       // text-transform: uppercase;
      @include multi(   font-size, 2rem, 2rem, 2rem, 4rem );
-      // font-weight: bold;
+      font-weight: bold;
       text-align: center;
       line-height: 2.5rem;
       // font-family: surfcity !important;

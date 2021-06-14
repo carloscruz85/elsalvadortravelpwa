@@ -17,7 +17,7 @@ const Destination = (props) => {
     // console.log(globalData.destinations);    
     const { destinations, lang } = globalData
     // console.log(destinations.length);
-    const options = [1,2,5,6]
+    const options = [1,2,5]
 
     const move = (p)=>{
         // console.log(p);
@@ -61,9 +61,9 @@ const Destination = (props) => {
                             <div className="title" >{d[1].title}</div>
                             <div className="options">
 
-                                { options.map( (n,i)=>{
+                                { options.reverse().map( (n,i)=>{
                 
-                                    let img = require('../../assets/images/'+n+'.png');
+                                    let img = require('../../assets/images/'+n+'.svg');
                                     // console.log(img);
                                     return (
                                         <div key={ i } onClick={ ()=>{ setOption(n) }} className="option">
