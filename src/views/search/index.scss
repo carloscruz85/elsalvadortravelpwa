@@ -1,0 +1,17 @@
+@import '../../index.scss';
+
+.search-container{
+    margin-top: 1rem;
+    input{
+        outline: none;
+        background-color: $back1 !important;
+        margin-bottom: 1rem;
+        padding: 0.5rem;
+        border: 1px solid $cyan;
+        border-radius: 0.5rem;
+        width: 100%;
+        color: white;
+        letter-spacing: 0.2rem;
+        
+    }
+}

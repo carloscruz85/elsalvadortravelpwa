@@ -1,0 +1,21 @@
+@import '../../styles/index.scss';
+
+.options{
+    // border: 1px solid red;
+    padding: 1rem 0;
+    .option{
+        // border: 1px solid red;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: flex-end;
+        margin: 1rem 0;
+        i{
+            font-size: 2.5rem;
+        }
+    }
+}
+
+i{
+    color: $cyan;
+    margin-right: 0.5rem;
+}

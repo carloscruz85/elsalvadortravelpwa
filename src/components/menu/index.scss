@@ -1,0 +1,39 @@
+@use "sass:math";
+@import "../../styles/index.scss";
+
+$tol : 1rem;
+
+.menu{
+    // display: none;
+    margin: 0 $tol;
+    @include multi( width, 10%, 15%, 6%, 7% );
+    // border: 1px solid red;
+    .basic-button{
+        // background-color: $back1 !important;
+        cursor: pointer;
+        // @include center-center();
+        // padding:   math.div($tol, 2);
+        // border-radius:   math.div($tol, 2);
+        // width: 100%;
+        // padding-bottom: 100%;
+        // margin: $tol 0;
+        // position: relative;
+        // border: 1px solid $cyan;
+        img{
+            width: 100%;
+            height: auto;
+            // position: absolute;
+            // top: 20%;
+            // // display: none;
+            // transition: filter 0.5s;
+ 
+        }
+    }
+    .text{
+        // background-color: $back1 !important;
+        color: $cyan;
+        text-transform: uppercase;
+        @include center-center();
+        font-weight: bold;
+    }
+}
