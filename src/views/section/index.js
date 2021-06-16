@@ -4,32 +4,33 @@ import { DataContext } from '../../context/context'
 import Card from '../../components/card'
 
 const Section = (props) => {
-  
+
   const { globalData } = useContext(DataContext)
   // const [childs, setChilds] = useState( [] )
   const [destinations, setDestinations] = useState([])
-  useEffect(() => {    
+  useEffect(() => {
+    // console.log(props.match.params.section, globalData.terms);
     window.scrollTo(0, 0);
     // console.log(globalData.terms[props.match.params.section]);
     // console.log(globalData.destinations[0]);
 
-    setDestinations( globalData.destinations.filter( (d) => {
+    setDestinations(globalData.destinations.filter((d) => {
       // console.log(d[1].terms);
       let matches = 0;
-      matches = d[1].terms.reduce( (total, current ) => {
+      matches = d[1].terms.reduce((total, current) => {
         // console.log(current.term_id, globalData.terms[props.match.params.section].id);
-        if( current.term_id === globalData.terms[props.match.params.section].id )
-        return total + 1
-        else{
+        if (current.term_id === globalData.terms[props.match.params.section].id)
+          return total + 1
+        else {
           return total
         }
-      }, 0 );
+      }, 0);
 
       // console.log('results',matches);
-      if( matches )
-      return d
+      if (matches)
+        return d
       else return null
-    } ) )
+    }))
 
   }, [globalData, props.match.params.section]);
 
@@ -41,18 +42,18 @@ const Section = (props) => {
 
   return (
     <div className="container">
-        {  globalData.terms[props.match.params.section] ? 
-        <div className="title">{ globalData.lang === 'en'  ?  globalData.terms[props.match.params.section]['title-en'] : globalData.terms[props.match.params.section]['title-es'] }</div> : null  }
-<div className="list">
+      {globalData.terms[props.match.params.section] ?
+        <div className="title">{globalData.lang === 'en' ? globalData.terms[props.match.params.section]['title-en'] : globalData.terms[props.match.params.section]['title-es']}</div> : null}
+      <div className="list">
         {
-          destinations.map( (d, i) => {
+          destinations.map((d, i) => {
             return (
               <Card key={i} title={d[1].title} />
             )
-          } )
+          })
         }
-        </div>
-        
+      </div>
+
     </div>
   );
 };

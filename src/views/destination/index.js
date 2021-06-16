@@ -36,7 +36,7 @@ const Destination = (props) => {
                             return destination
                         else return null
                     }).map((d, i) => {
-                        // console.log(d[1]);
+                        console.log(d[1]);
                         let gallery = Object.entries(d[1].gallery)
                         // console.log(gallery);
                         return (
