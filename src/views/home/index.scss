@@ -1,10 +1,11 @@
 @import '../../styles/index.scss';
 
 .intro{
+    text-align: center;
     // background-image: url();
 
-    padding: 1rem;
-    border-radius: 1rem;
+    // padding: 1rem;
+    // border-radius: 1rem;
 
     // background: linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)) center center / cover no-repeat, url(../../assets/images/surf.jpg); 
     // @include back-image();
@@ -12,8 +13,18 @@
     .intro-title{
         color: $cyan;
         font-size: 2.5rem;
+        font-weight: bold;
         // font-family: surfcity;
         margin-bottom: 1rem;
+        margin-top: 3rem !important;
+        display: none
+    }
+    .woman-container{
+        @include center-center();
+        img{
+            @include multi(width, 50%, 50%, 20%, 15%);
+            height: auto;
+        }
     }
 }
 

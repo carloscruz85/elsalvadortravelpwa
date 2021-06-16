@@ -54,7 +54,7 @@
   // background-color: red;
   margin-bottom: 0rem;
   .logo{
-    @include multi(width, 100%, 75%, 30%, 20%);
+    @include multi(width, 100%, 75%, 50%, 50%);
     height: auto;
     // position: relative;
     // left: 12% ;

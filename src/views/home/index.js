@@ -3,6 +3,7 @@ import Logo from '../../assets/images/logo.png'
 import {DataContext} from '../../context/context'
 import List from '../list'
 import './index.scss'
+import Woman from '../../assets/images/woman.png'
 // import Surf from '../../assets/images/surf.jpg'
 
 const App = () => {
@@ -22,7 +23,10 @@ const App = () => {
         <div className="logo-container">
           <img src={Logo} alt="Surf City" className="logo"/>
         </div>        
-        {/* <img src={Surf} alt="Surf" className="liquid"/> */}
+        <div className="woman-container">
+          <img src={Woman} alt="logo" />
+        </div>
+
         <div className=" basic-p" style={{marginTop: '1rem'}}>
           {
            lang === 'es' ? (<div>

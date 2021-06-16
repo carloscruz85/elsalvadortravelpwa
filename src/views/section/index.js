@@ -1,12 +1,12 @@
 import React, { useEffect, useContext, useState } from "react";
 import './index.scss'
 import { DataContext } from '../../context/context'
-import {Link} from 'react-router-dom'
+import Card from '../../components/card'
 
 const Section = (props) => {
   
-  const { globalData, dispatch } = useContext(DataContext)
-  const [childs, setChilds] = useState( [] )
+  const { globalData } = useContext(DataContext)
+  // const [childs, setChilds] = useState( [] )
   const [destinations, setDestinations] = useState([])
   useEffect(() => {    
     window.scrollTo(0, 0);
@@ -47,12 +47,7 @@ const Section = (props) => {
         {
           destinations.map( (d, i) => {
             return (
-              <Link to={`/destination/${d[1].title.replace( ' ', '_' ).toLowerCase()}`} className="destination" key={i}>
-              <div  className="destination-title"
-              dangerouslySetInnerHTML={{
-              __html:  `${d[1].title}` 
-              }}></div>              
-          </Link>
+              <Card key={i} title={d[1].title} />
             )
           } )
         }
