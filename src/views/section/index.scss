@@ -23,6 +23,10 @@ i{
 .item-list{
     opacity: 0;
     animation: appear 1s linear forwards;
+    text-decoration: none;
+    a{
+        text-decoration: none;
+    }
 }
 
 @keyframes appear {

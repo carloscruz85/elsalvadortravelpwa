@@ -93,12 +93,12 @@ const Section = (props) => {
           <Typography variant="h3" component="h3" align="center">
             {titleSection}
           </Typography>
-          <List className={classes.root}>
+          <List className={classes.root} >
             {
               localDestinations.map((d, i) => {
                 // console.log(d);
                 return (
-                  <div key={slugify(d['title-en'])} className="item-list"  style={ {animationDelay: `${i/5}s`} } >
+                  <Link to={`/destination/${slugify(d['title-en'])}`} key={slugify(d['title-en'])} className="item-list"  style={ {animationDelay: `${i/5}s`} } >
                     <ListItem alignItems="flex-start" >
                       <ListItemAvatar>
                         <Avatar alt={d.title} src={d.image} variant="rounded" />
@@ -117,7 +117,7 @@ const Section = (props) => {
                       />
                     </ListItem>
                     <Divider variant="inset" component="li" />
-                  </div>
+                  </Link>
                 )
               })
             }

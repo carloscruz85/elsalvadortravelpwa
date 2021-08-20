@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useStore } from '../../store/store'
 
 const BasicButton = (props) => {
-    const { data, terms, setData, setTerms, setDestinations, lang } = useStore();
+    const { lang } = useStore();
 
     const img = require('../../assets/images/' + props.term.slug + '.png');
     return (
