@@ -8,7 +8,7 @@ import InputBase from '@material-ui/core/InputBase';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import basicButton from '../../logic/basic-button' 
+import BasicButton from '../../logic/basic-button' 
 import MenuItem from '@material-ui/core/MenuItem';
 //store
 import { useStore } from '../../store/store'
@@ -146,7 +146,7 @@ export default function Bar() {
             {
               terms.map((term, iimg) => {
                 return (
-                  <MenuItem onClick={()=>handleClose()} key={iimg}> {basicButton(term,iimg)} </MenuItem>
+                  <MenuItem onClick={()=>handleClose()} key={iimg}> <BasicButton term={term[1]} /> </MenuItem>
                 )
               })
                

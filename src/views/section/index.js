@@ -3,6 +3,8 @@ import './index.scss'
 import { useStore } from '../../store/store'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import slugify from 'logic/slugify'
+import {Link} from 'react-router-dom'
 
 //material
 import List from '@material-ui/core/List';
@@ -13,6 +15,11 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 
+//utils 
+import { stripTags } from '../../logic/utils'
+
+//animations
+// import {useSpring, animated} from 'react-spring'
 
 
 const Section = (props) => {
@@ -28,7 +35,7 @@ const Section = (props) => {
     },
   }));
 
-  const { data, destinations } = useStore();
+  const { data, destinations, lang, terms } = useStore();
   const [localDestinations, setLocalDestinations] = useState([])
 
 
@@ -55,85 +62,68 @@ const Section = (props) => {
 
   }, [destinations, props.match.params.section, data.terms]);
 
-  // console.log(destinations);
+  const [titleSection, setTitleSection] = useState('Loading...')
+
+  
+
+  useEffect(() => {
+    if (terms.length > 0) {
+      setTitleSection(terms.reduce((a, c) => {
+        if (c[0] === props.match.params.section) {
+          a.push(c[1]['title-' + lang])
+          return a
+        } else {
+          return a
+        }
+      }, []));
+    }
+
+  }, [terms, lang, props.match.params.section])
+
+  //console.log(terms);
   const classes = useStyles();
+
   return (
-    <div className={classes.root}>
+    <div className={classes.root} >
 
 
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <h1>{props.match.params.section}</h1>
-          {/* <Link to={`/destination/${d[1].title.replaceAll( ' ', '_' ).toLowerCase()}`} className="destination" key={i}>
-              <div  className="destination-title"
-              dangerouslySetInnerHTML={{
-              __html:  `${d[1].title}` 
-              }}></div>              
-          </Link> */}
+          
+          <Typography variant="h3" component="h3" align="center">
+            {titleSection}
+          </Typography>
+          <List className={classes.root}>
+            {
+              localDestinations.map((d, i) => {
+                // console.log(d);
+                return (
+                  <div key={slugify(d['title-en'])} className="item-list"  style={ {animationDelay: `${i/5}s`} } >
+                    <ListItem alignItems="flex-start" >
+                      <ListItemAvatar>
+                        <Avatar alt={d.title} src={d.image} variant="rounded" />
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary={<div
+                          dangerouslySetInnerHTML={{
+                            __html: `${d['title-' + lang]}`
+                          }}></div>}
+                        secondary={
+                          <React.Fragment>
+                            {stripTags(d['content-' + lang]).substring(0, 75)}...
+
+                          </React.Fragment>
+                        }
+                      />
+                    </ListItem>
+                    <Divider variant="inset" component="li" />
+                  </div>
+                )
+              })
+            }
+          </List>
         </Grid>
       </Grid>
-
-
-      <List className={classes.root}>
-
-
-        {
-          localDestinations.map((d, i) => {
-            console.log(d);
-            return (
-              <div key={i} >
-                <ListItem  alignItems="flex-start">
-                  <ListItemAvatar>
-                    <Avatar alt={d.title} src={d.image} />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={  <div 
-                    dangerouslySetInnerHTML={{
-                    __html:  `${d.title}` 
-                    }}></div>   }
-                    secondary={
-                      <React.Fragment>
-                        <Typography
-                          component="span"
-                          variant="body2"
-                          className={classes.inline}
-                          color="textPrimary"
-                        >
-                          Ali Connors
-                        </Typography>
-                        {" — I'll be in your neighborhood doing errands this…"}
-                      </React.Fragment>
-                    }
-                  />
-                </ListItem>
-                <Divider variant="inset" component="li" />
-              </div>
-            )
-          })
-        }
-
-
-      </List>
-
-
-
-      {/* {  data.terms[props.match.params.section] ? 
-        <div className="title">{ data.lang === 'en'  ?  data.terms[props.match.params.section]['title-en'] : data.terms[props.match.params.section]['title-es'] }</div> : null  }
-<div className="list">
-        {
-          destinations.map( (d, i) => {
-            return (
-              <Link to={`/destination/${d[1].title.replace( ' ', '_' ).toLowerCase()}`} className="destination" key={i}>
-              <div  className="destination-title"
-              dangerouslySetInnerHTML={{
-              __html:  `${d[1].title}` 
-              }}></div>              
-          </Link>
-            )
-          } )
-        }
-        </div> */}
-
     </div>
   );
 };

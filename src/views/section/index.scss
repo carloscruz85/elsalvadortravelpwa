@@ -19,3 +19,17 @@ i{
     color: $cyan;
     margin-right: 0.5rem;
 }
+
+.item-list{
+    opacity: 0;
+    animation: appear 1s linear forwards;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;;
+    }
+    to{
+        opacity: 1;
+    }
+}

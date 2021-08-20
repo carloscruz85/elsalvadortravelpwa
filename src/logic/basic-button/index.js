@@ -1,12 +1,19 @@
-import {Link} from 'react-router-dom'
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { useStore } from '../../store/store'
 
-export default function basicButton(term, i) {
-    const img = require('../../assets/images/'+term[1].slug+'.png');
-    // console.log(term[1].slug, '../../assets/images/'+term[1].slug+'.png');
+const BasicButton = (props) => {
+    const { data, terms, setData, setTerms, setDestinations, lang } = useStore();
+
+    const img = require('../../assets/images/' + props.term.slug + '.png');
     return (
-        <Link to={'/section/'+term[1].slug} className="basic-button" key={i}>
-            <img src={img['default']} alt={term[1].slug}/>
+   
+        <Link to={'/section/' + props.term.slug} className="basic-button" key={props.i}>
+            <img src={img['default']} alt={props.term.slug} /> {props.term['title-'+lang]}
         </Link>
     )
-  }
-  
+
+
+}
+
+export default BasicButton
