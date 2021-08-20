@@ -15,6 +15,7 @@ import { useStore } from '../../store/store'
 
 //menu
 import Menu from '@material-ui/core/Menu';
+import TranslateIcon from '@material-ui/icons/Translate';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -72,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Bar() {
-  const { data, terms, setData, setTerms, setDestinations } = useStore();
+  const { data, terms, setData, setTerms, setDestinations, setLang } = useStore();
   //data
 
   useEffect(() => {
@@ -102,7 +103,23 @@ export default function Bar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  // menu
+
+    //lang
+    const [menuAnchor, setMenuAnchor] = React.useState(null);
+    const openLanguageMenu = (event) => {
+      setMenuAnchor( event.currentTarget )
+    }
+  
+    const handleMenuClose = () => {
+      setMenuAnchor(null);
+    };
+
+    const langCtrl = (lang) => {
+      handleMenuClose()
+      setLang(lang)
+    }
+
+  // menu styles
   const classes = useStyles();
 
   return (
@@ -113,7 +130,7 @@ export default function Bar() {
             edge="start"
             className={classes.menuButton}
             color="inherit"
-            aria-label="open drawer"
+            aria-label="open menu"
             aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}
           >
             <MenuIcon />
@@ -151,6 +168,23 @@ export default function Bar() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
+          <IconButton aria-label="Language" edge="end" color="inherit" 
+           aria-controls="lang-menu" aria-haspopup="true" onClick={openLanguageMenu}
+           >
+            <TranslateIcon />
+          </IconButton>
+          <Menu
+            id="lang-menu"
+            anchorEl={menuAnchor}
+            keepMounted
+            open={Boolean(menuAnchor)}
+            onClose={handleMenuClose}
+            className="lang-menu"
+          >
+            <MenuItem onClick={()=>langCtrl('es')}> Español </MenuItem>
+            <MenuItem onClick={()=>langCtrl('en')}> English </MenuItem>
+
+          </Menu>
         </Toolbar>
       </AppBar>
     </div>

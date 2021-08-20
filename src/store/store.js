@@ -35,6 +35,13 @@ export const [useStore] = create( set => ({
 
              )
         )
+    },
+    setLang : (lang) => {
+        set( 
+            ()=>({
+                lang: lang
+            })
+         )
     }
     
 })
