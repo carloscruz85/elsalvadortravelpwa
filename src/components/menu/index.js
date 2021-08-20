@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom'
 import House from '../../assets/images/house.png'
 import Lupa from '../../assets/images/lupa.png'
 
-function Menu() {
+function Menu() {   
     const { globalData, dispatch, filtered } = useContext(DataContext)
     const [globalTerms, setGlobalTerms] = useState( [] )
     const {lang} = globalData

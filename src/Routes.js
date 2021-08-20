@@ -9,7 +9,13 @@ import Clear from './views/clear'
 import DataProvider from './context/context'
 import Loader from './components/loader'
 import axios from 'axios'
-import Menu from './components/menu';
+// import Menu from './components/menu';
+import Bar from './components/bar'
+import Container from '@material-ui/core/Container';
+
+// import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+
+
 // import ErrorBoundary from './boundaries'
 
 // import SaveInContext from './logic/saveInContext'
@@ -25,6 +31,7 @@ function App() {
   const [go, setGo] = useState( false )
 
   useEffect(() => {
+
     // console.log('in router');
     const data = window.localStorage.getItem('ws-data')
     if( data === null ){
@@ -58,13 +65,16 @@ function App() {
         
         <Switch>
           <DataProvider>
-            <Menu />
+          <Bar />
+          <Container maxWidth="xl">
+            
             <Route exact path="/" component={Home} />
             <Route exact path="/section/:section" component={Section} />
             <Route exact path="/list/" component={List} />
             <Route exact path="/destination/:destination" component={Destination} />
             <Route exact path="/search" component={Search} />
             <Route exact path="/clear" component={Clear} />
+            </Container>
           </DataProvider>
         </Switch>
       : <Loader msg={loader.msg}/>

@@ -9,6 +9,7 @@ function List() {
     return (
         <div className="container">
             <div className="logo-container">
+                
                 <img src={Logo} className="logo" alt="Surf City" />
             </div>
             <div className="list">
@@ -18,7 +19,6 @@ function List() {
                         return (
                             <Link to={`/destination/${destination[1].title.replace( ' ', '_' ).toLowerCase()}`} className="destination" key={i}>
                                 <div className="destination-title">{destination[1].title}</div>
-    
                             </Link>
                         )
                     } )
