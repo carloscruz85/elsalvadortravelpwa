@@ -64,7 +64,7 @@ export default function ControlledAccordions(props) {
         <AccordionDetails>
 
           <div>
-            {services.filter(service => props.food.split(",").includes(service.id.toString())).map((s, i) => <Service service={s} key={i} simple={false}/>)}
+            {services.filter(service => props.food.split(",").includes(service.id.toString())).map((s) => <Service service={s} key={s.id} simple={false}/>)}
           </div>
 
 
@@ -88,7 +88,7 @@ export default function ControlledAccordions(props) {
 
 
           <div>
-            {services.filter(service => props.lodging.split(",").includes(service.id.toString())).map((s, i) => <Service service={s} key={i} simple={false} />)}
+            {services.filter(service => props.lodging.split(",").includes(service.id.toString())).map((s) => <Service service={s} key={s.id} simple={false} />)}
           </div>
 
         </AccordionDetails>
@@ -110,7 +110,7 @@ export default function ControlledAccordions(props) {
         </AccordionSummary>
         <AccordionDetails>
           <div>
-          {experiences.filter(service => { return props.experiences[0].split(",").includes(service.id.toString()) }).map((s, i) => <Experience experience={s} key={i} simple={true} />)}
+          {experiences.filter(service => { return props.experiences[0].split(",").includes(service.id.toString()) }).map((s) => <Experience experience={s} key={s.id} simple={true} />)}
           </div>
         </AccordionDetails>
       </Accordion>
