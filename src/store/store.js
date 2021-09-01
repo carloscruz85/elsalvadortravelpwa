@@ -9,10 +9,14 @@ export const [useStore] = create( set => ({
     pool: [],
     destinations: [],
     services: [],
-    inc: () => 
-        set( state => ({
-            count: state.count + 1
-        }) ),
+    experiences: [],
+    setExperiences: (newExperiences) => {
+        (
+            set( (state) => ({
+                experiences: newExperiences
+            }) )
+        )
+    },
     setData: (newData) => {
         (
             set( (state) => ({
@@ -42,6 +46,17 @@ export const [useStore] = create( set => ({
                 lang: lang
             })
          )
+    },
+    setServices: (newServices) => {
+        (
+            set(
+                ()=>(
+                    {
+                        services: newServices
+                    }
+                )
+            )
+        )
     }
     
 })

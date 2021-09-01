@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Bar() {
-  const { data, terms, setData, setTerms, setDestinations, setLang } = useStore();
+  const { data, terms, setData, setTerms, setDestinations, setLang, setServices, setExperiences } = useStore();
   //data
 
   useEffect(() => {
@@ -90,8 +90,20 @@ export default function Bar() {
         return a
       },[] ) )
 
+      setExperiences( Object.entries(dataLocal.experiences).reduce( (a,c) => {  
+        a.push(c[1])
+        return a
+      },[] ) )
+
+      setServices( Object.entries(dataLocal.services).reduce( (a,c) => { 
+        const data = c[1] 
+        data.id=parseInt(c[0])
+        a.push(c[1])
+        return a
+      },[] ) )
+
     }
-  }, [data.length, setData, setTerms])
+  }, [data.length, setData, setTerms, setDestinations, setServices, setExperiences])
 
   // menu
   const [anchorEl, setAnchorEl] = React.useState(null);
