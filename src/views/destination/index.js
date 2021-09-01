@@ -21,9 +21,9 @@ const Destination = (props) => {
     }, [destinations, props.match.params.destination])
 
     useEffect(() => {
-        if(destination) {
+        if (destination) {
             // console.log(destination);
-            setCarrousel(destination.gallery.reduce( (a,c) => { a.push( c.guid ); return a },[destination.image] ));
+            setCarrousel(destination.gallery.reduce((a, c) => { a.push(c.guid); return a }, [destination.image]));
         }
     }, [destination])
 
@@ -36,25 +36,26 @@ const Destination = (props) => {
                             <Typography variant="h3" component="h3" align="center" dangerouslySetInnerHTML={{
                                 __html: `${destination['title-' + lang]}`
                             }}></Typography>
-                            <Services food={destination.food} lodging={destination.lodging} experiences={destination.experiences}/>
                             {
-                                carrousel === 1254 ? 
+                                carrousel ?
                                     <Carousel>
-                                    {
-                                        carrousel.map((item, i) =>
-                                            <Paper key="i">
-                                                <div className="img-container">
-                                                    <img src={item} alt="img" className="gallery-item"/>
-                                                </div>
-                                            </Paper>)
-                                    }
+                                        {
+                                            carrousel.map((item, i) =>
+                                                <Paper key="i">
+                                                    <div className="img-container">
+                                                        <img src={item} alt="img" className="gallery-item" />
+                                                    </div>
+                                                </Paper>)
+                                        }
                                     </Carousel>
                                     : null
                             }
-                 
+
                             <Typography component="div" align="justify" dangerouslySetInnerHTML={{
                                 __html: `${destination['content-' + lang]}`
                             }}></Typography>
+                            <Services food={destination.food} lodging={destination.lodging} experiences={destination.experiences} />
+
                         </div>
                         : null
                 }

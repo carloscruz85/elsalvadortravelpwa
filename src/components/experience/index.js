@@ -5,10 +5,12 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import translate from 'logic/translate'
+import Translate from 'logic/translate'
+import { useStore } from 'store/store'
+
 
 const useStyles = makeStyles({
     root: {
@@ -20,7 +22,9 @@ const useStyles = makeStyles({
 });
 
 const Experience = (props) => {
-    console.log(props.service);
+
+    const { lang } = useStore()
+    // console.log(props.experience);
     const classes = useStyles();
     return (
         <>
@@ -28,39 +32,23 @@ const Experience = (props) => {
             <CardActionArea>
             <CardMedia
           component="img"
-          alt="Contemplative Reptile"
+          alt={`${Translate([props.experience['title-en'], props.experience['title-es']])} - image`}
           height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
-          title="Contemplative Reptile"
+          image={props.experience.image}
+          title= {Translate([props.experience['title-en'], props.experience['title-es']])}
         />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
-                        {props.service.title}
+
+                    {Translate([props.experience['title-en'], props.experience['title-es']])}
+                       
                     </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                        {props.service.details.Address}
-                    </Typography>
+                    <Typography component="div" align="justify" dangerouslySetInnerHTML={{
+                                __html: `${props.experience['content-' + lang]}`
+                            }}></Typography>
                 </CardContent>
             </CardActionArea>
-            <CardActions>
-                { props.service.details.cel ? <Button size="small" color="primary">
-                    <a href={`tel:${props.service.details.mail}`}>{translate(['Call','Llamar'])}</a>
-                </Button> : null
-                }
-                { props.service.details.mail ? <Button size="small" color="primary">
-                    <a href={`mailto:${props.service.details.mail}`}>Email</a>
-                </Button> : null
-                }
-                { props.service.details.instagram ? <Button size="small" color="primary">
-                    <a rel="noreferrer" target="_blank" href={`${props.service.details.instagram}`}>Instagram</a>
-                </Button> : null
-                }
-                
-                { props.service.details.facebook ? <Button size="small" color="primary">
-                    <a rel="noreferrer" target="_blank" href={`${props.service.details.facebook}`}>Facebook</a>
-                </Button> : null
-                }
-            </CardActions>
+
         </Card>
         <Divider />
         </>

@@ -11,6 +11,7 @@ import Translate from 'logic/translate'
 import Service from 'components/service'
 import Experience from 'components/experience';
 
+// import ErrorBoundary from 'boundaries'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,12 +46,10 @@ export default function ControlledAccordions(props) {
   //     }
   // )
 
-  useEffect(() => {
-    // console.log(props.experiences[0].split(","), experiences);
-  }, [])
 
   return (
     <div className={classes.root}>
+
       <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -65,7 +64,7 @@ export default function ControlledAccordions(props) {
         <AccordionDetails>
 
           <div>
-            {services.filter(service => props.food.split(",").includes(service.id.toString())).map((s, i) => <Service service={s} key={i} />)}
+            {services.filter(service => props.food.split(",").includes(service.id.toString())).map((s) => <Service service={s} key={s.id} simple={false}/>)}
           </div>
 
 
@@ -89,30 +88,34 @@ export default function ControlledAccordions(props) {
 
 
           <div>
-            {services.filter(service => props.lodging.split(",").includes(service.id.toString())).map((s, i) => <Service service={s} key={i} />)}
+            {services.filter(service => props.lodging.split(",").includes(service.id.toString())).map((s) => <Service service={s} key={s.id} simple={false} />)}
           </div>
 
         </AccordionDetails>
       </Accordion>
-
+   
       <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel3bh-content"
           id="panel3bh-header"
         >
-          <Typography className={classes.heading}>{Translate(['Experiences', 'Experiencias'])}</Typography>
+          <Typography className={classes.heading}>
+            {Translate(['Experiences', 'Experiencias'])}
+            </Typography>
           <Typography className={classes.secondaryHeading}>
             {Translate(['What to do?', '¿Qué hacer?'])}
           </Typography>
 
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            {experiences.filter(service => { return props.experiences[0].split(",").includes(service.id.toString()) }).map((s, i) => <Experience service={s} key={i} />)}
-          </Typography>
+          <div style={{width: '100%'}}>
+          {experiences.filter(service => { return props.experiences[0].split(",").includes(service.id.toString()) }).map((s) => <Experience experience={s} key={s.id} simple={true} />)}
+          </div>
         </AccordionDetails>
       </Accordion>
+
+
     </div>
   );
 }
