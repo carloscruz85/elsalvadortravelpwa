@@ -3,11 +3,19 @@ import ReactDOM from "react-dom";
 import Routes from "./Routes";
 import * as serviceWorker from "./serviceWorker";
 import "./index.scss";
+//custom api
+import {QueryClient, QueryClientProvider} from 'react-query'
+// import {ReactQueryDevtools} from 'react-query/devtools'
+const queryClient = new QueryClient();
+
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Routes />
-  </React.StrictMode>,
+
+    <QueryClientProvider client={queryClient}>
+      <Routes />
+      {/* <ReactQueryDevtools /> */}
+    </QueryClientProvider>
+,
   document.getElementById("root")
 );
 

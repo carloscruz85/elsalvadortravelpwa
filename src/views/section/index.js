@@ -1,63 +1,129 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useState } from "react";
 import './index.scss'
-import { DataContext } from '../../context/context'
+import { useStore } from '../../store/store'
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import slugify from 'logic/slugify'
 import {Link} from 'react-router-dom'
 
+//material
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import Divider from '@material-ui/core/Divider';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
+import Typography from '@material-ui/core/Typography';
+
+//utils 
+import { stripTags } from '../../logic/utils'
+
+//animations
+// import {useSpring, animated} from 'react-spring'
+
+
 const Section = (props) => {
-  
-  const { globalData, dispatch } = useContext(DataContext)
-  const [childs, setChilds] = useState( [] )
-  const [destinations, setDestinations] = useState([])
-  useEffect(() => {    
+
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      flexGrow: 1,
+    },
+    paper: {
+      padding: theme.spacing(2),
+      textAlign: 'center',
+      color: theme.palette.text.secondary,
+    },
+  }));
+
+  const { data, destinations, lang, terms } = useStore();
+  const [localDestinations, setLocalDestinations] = useState([])
+
+
+  useEffect(() => {
     window.scrollTo(0, 0);
-    // console.log(globalData.terms[props.match.params.section]);
-    // console.log(globalData.destinations[0]);
 
-    setDestinations( globalData.destinations.filter( (d) => {
-      // console.log(d[1].terms);
-      let matches = 0;
-      matches = d[1].terms.reduce( (total, current ) => {
-        // console.log(current.term_id, globalData.terms[props.match.params.section].id);
-        if( current.term_id === globalData.terms[props.match.params.section].id )
-        return total + 1
-        else{
-          return total
+    if (destinations.length > 0)
+      setLocalDestinations(destinations.filter((d) => {
+        let matches = 0;
+        matches = d.terms.reduce((total, current) => {
+          if (current.term_id === data.terms[props.match.params.section].id)
+            return total + 1
+          else {
+            return total
+          }
+        }, 0);
+
+        if (matches)
+          return d
+        else return null
+      }))
+
+
+
+  }, [destinations, props.match.params.section, data.terms]);
+
+  const [titleSection, setTitleSection] = useState('Loading...')
+
+  
+
+  useEffect(() => {
+    if (terms.length > 0) {
+      setTitleSection(terms.reduce((a, c) => {
+        if (c[0] === props.match.params.section) {
+          a.push(c[1]['title-' + lang])
+          return a
+        } else {
+          return a
         }
-      }, 0 );
+      }, []));
+    }
 
-      // console.log('results',matches);
-      if( matches )
-      return d
-      else return null
-    } ) )
+  }, [terms, lang, props.match.params.section])
 
-  }, [globalData, props.match.params.section]);
-
-  // const data = JSON.parse(window.localStorage.getItem('ws-data'))
-  // console.log(globalData.terms, childs);
-  // const terms = Object.entries(data.terms[props.match.params.section].childs)
-
-  // console.log(globalData.terms[props.match.params.section]);
+  //console.log(terms);
+  const classes = useStyles();
 
   return (
-    <div className="container">
-        {  globalData.terms[props.match.params.section] ? 
-        <div className="title">{ globalData.lang === 'en'  ?  globalData.terms[props.match.params.section]['title-en'] : globalData.terms[props.match.params.section]['title-es'] }</div> : null  }
-<div className="list">
-        {
-          destinations.map( (d, i) => {
-            return (
-              <Link to={`/destination/${d[1].title.replace( ' ', '_' ).toLowerCase()}`} className="destination" key={i}>
-              <div  className="destination-title"
-              dangerouslySetInnerHTML={{
-              __html:  `${d[1].title}` 
-              }}></div>              
-          </Link>
-            )
-          } )
-        }
-        </div>
-        
+    <div className={classes.root} >
+
+
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          
+          <Typography variant="h3" component="h3" align="center">
+            {titleSection}
+          </Typography>
+          <List className={classes.root} >
+            {
+              localDestinations.map((d, i) => {
+                // console.log(d);
+                return (
+                  <Link to={`/destination/${slugify(d['title-en'])}`} key={slugify(d['title-en'])} className="item-list"  style={ {animationDelay: `${i/5}s`} } >
+                    <ListItem alignItems="flex-start" >
+                      <ListItemAvatar>
+                        <Avatar alt={d.title} src={d.image} variant="rounded" />
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary={<div
+                          dangerouslySetInnerHTML={{
+                            __html: `${d['title-' + lang]}`
+                          }}></div>}
+                        secondary={
+                          <React.Fragment>
+                            {stripTags(d['content-' + lang]).substring(0, 75)}...
+
+                          </React.Fragment>
+                        }
+                      />
+                    </ListItem>
+                    <Divider variant="inset" component="li" />
+                  </Link>
+                )
+              })
+            }
+          </List>
+        </Grid>
+      </Grid>
     </div>
   );
 };

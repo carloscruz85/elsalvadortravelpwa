@@ -1,42 +1,118 @@
-import React, {useContext} from 'react'
-import {DataContext} from '../../context/context'
-import './index.scss'
+import React, { useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { useStore } from 'store/store'
+import Translate from 'logic/translate'
 
-const Services = (props) => {
-    const { globalData } = useContext(DataContext)
-    const servicesReceived = props.services.split(',');
-    // console.log(globalData);
-    const {services} = globalData
-    // console.log(services);
-    return (
-        <div className="service-container">
-            <div className="service-title">{props.title}</div>
-            <div className="services">
-            {
-                services.map( (s, i) => {
-              
-                     if( servicesReceived.indexOf( s[0] ) !== -1 ){
-                        //  console.log(servicesReceived, s[0]);
-                        return ( 
-                            <div key={i}>
-                                <div className="service">
-                                    <div className="title-service">{s[1].title}</div>
-                                    <div className="address">{s[1].details.Address}</div>
-                                    <div><a rel="noreferrer" target="_blank" href={`mailto:${s[1].details.mail}`}>{s[1].details.mail}</a></div>
-                                    <div><a rel="noreferrer" target="_blank" href={`https://instagram.com/${s[1].details.instagram}`}>{s[1].details.instagram}</a>  </div>
-                                    <div><a rel="noreferrer" target="_blank" href={`https://facebook.com/${s[1].details.facebook}`}>{s[1].details.facebook}</a>  </div>
-                                    <div><a rel="noreferrer" target="_blank" href={`${s[1].details.web}`}>{s[1].details.web}</a>  </div>
-                                </div>
-                            </div>
-                         )
-                     }else{
-                         return null
-                     }
-                } )
-            }
-            </div>
-        </div>
-    )
+import Service from 'components/service'
+import Experience from 'components/experience';
+
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    flexBasis: '33.33%',
+    flexShrink: 0,
+  },
+  secondaryHeading: {
+    fontSize: theme.typography.pxToRem(15),
+    color: theme.palette.text.secondary,
+  },
+}));
+
+export default function ControlledAccordions(props) {
+
+  const { services, experiences } = useStore()
+
+  const classes = useStyles();
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
+
+  // const [services, setServices] = useState(
+  //     {
+  //       lodging: [],
+  //       food: []
+  //     }
+  // )
+
+  useEffect(() => {
+    // console.log(props.experiences[0].split(","), experiences);
+  }, [])
+
+  return (
+    <div className={classes.root}>
+      <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1bh-content"
+          id="panel1bh-header"
+        >
+          <Typography className={classes.heading}> {Translate(['Food', 'Alimentación'])} </Typography>
+          <Typography className={classes.secondaryHeading}>
+            {Translate(['Where to eat?', '¿Dónde comer?'])}
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+
+          <div>
+            {services.filter(service => props.food.split(",").includes(service.id.toString())).map((s, i) => <Service service={s} key={i} />)}
+          </div>
+
+
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel2bh-content"
+          id="panel2bh-header"
+        >
+          <Typography className={classes.heading}>
+            {Translate(['Lodging', 'Hospedaje'])}
+          </Typography>
+          <Typography className={classes.secondaryHeading}>
+            {Translate(['Where to sleep?', '¿Dónde dormir?'])}
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+
+
+          <div>
+            {services.filter(service => props.lodging.split(",").includes(service.id.toString())).map((s, i) => <Service service={s} key={i} />)}
+          </div>
+
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel3bh-content"
+          id="panel3bh-header"
+        >
+          <Typography className={classes.heading}>{Translate(['Experiences', 'Experiencias'])}</Typography>
+          <Typography className={classes.secondaryHeading}>
+            {Translate(['What to do?', '¿Qué hacer?'])}
+          </Typography>
+
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            {experiences.filter(service => { return props.experiences[0].split(",").includes(service.id.toString()) }).map((s, i) => <Experience service={s} key={i} />)}
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+    </div>
+  );
 }
-
-export default Services
