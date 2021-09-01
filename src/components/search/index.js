@@ -5,6 +5,8 @@ import InputBase from '@material-ui/core/InputBase';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Slugify from 'logic/slugify'
+import Dialog from 'components/dialog'
+import Translate from 'logic/translate'
 
 import { useStore } from '../../store/store'
 const useStyles = makeStyles((theme) => ({
@@ -63,9 +65,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Search(props) {
-    const [results, setResults] = useState([])
+    const [dialog, setDialog] = useState(
+        {
+            title: '',
+            msg: '',
+            show: false,
+            close: ''
+        }
+    )
 
-    const {experiences, destinations} = useStore()
+    const [results, setResults] = useState([])
+    const [innerHint, setInnerHint] = useState('')
+        
+    const {experiences, destinations, lang} = useStore()
 
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -80,17 +92,49 @@ export default function Search(props) {
     const classes = useStyles();
 
     const search = (hint) => {
-        
+        setInnerHint(hint)
         setResults(destinations.concat(experiences)
-        .filter( (d) => { if( Slugify(d['title-en']).includes( Slugify(hint) ) ) return d } ))
-        
-            
-        
-       
-        if (hint.length > 0 && props.container.current && results.length > 0) {
-            handleClick(props.container.current)
-        }
+        .filter( d => {
+            console.log(Slugify(d['title-en']).includes( Slugify(hint) ));
+            if( 
+                Slugify(d['title-en']).includes( Slugify(hint) )
+            ) return d
+            })
+        )
     }
+
+    useEffect(() => {
+        if (props.container.current) {
+            if(results.length > 0){
+                handleClick(props.container.current)
+            }
+            else {
+                if( innerHint.length > 0 ){
+                    switch (lang) {
+                        case 'es':
+                            setDialog( {
+                                title: `No hay resultados`,
+                                msg: ``,
+                                show: true,
+                                close: 'Cerrar'
+                            } )
+                            break;
+                    
+                        default:
+                            setDialog( {
+                                title: 'No results',
+                                msg: ``,
+                                show: true,
+                                close: 'Close'
+                            } )
+                            break;
+                    }
+                }
+                
+
+            }
+        }
+    }, [results])
 
     const [searchTerm, setSearchTerm] = useState('')
 
@@ -126,9 +170,18 @@ export default function Search(props) {
                 disableAutoFocusItem={true}
             >
                 {
-                    results?.map( (destination,i) => <MenuItem key={`${destination.id}_${i}`} >{destination['title-en']}</MenuItem> )
+                    results?.map( (destination,i) => 
+                    
+                    <MenuItem key={`${destination.id}_${i}`} >
+                        <div dangerouslySetInnerHTML={{
+                                __html: `${destination['title-en']}`
+                            }}>
+
+                        </div>
+                        </MenuItem> )
                 }
             </Menu>
+            <Dialog show={dialog.show} title={dialog.title} msg={dialog.msg} close={dialog.close} f={setDialog}/>
         </div>
 
     );
