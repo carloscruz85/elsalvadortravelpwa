@@ -109,7 +109,7 @@ export default function ControlledAccordions(props) {
 
         </AccordionSummary>
         <AccordionDetails>
-          <div>
+          <div style={{width: '100%'}}>
           {experiences.filter(service => { return props.experiences[0].split(",").includes(service.id.toString()) }).map((s) => <Experience experience={s} key={s.id} simple={true} />)}
           </div>
         </AccordionDetails>
