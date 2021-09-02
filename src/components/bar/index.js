@@ -1,13 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import './index.scss';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
 import BasicButton from '../../logic/basic-button' 
 import MenuItem from '@material-ui/core/MenuItem';
 //store
@@ -16,6 +14,10 @@ import { useStore } from '../../store/store'
 //menu
 import Menu from '@material-ui/core/Menu';
 import TranslateIcon from '@material-ui/icons/Translate';
+
+
+//search
+import Search from 'components/search'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -134,8 +136,10 @@ export default function Bar() {
   // menu styles
   const classes = useStyles();
 
+    const translateIcon = useRef(null)
+
   return (
-    <div className={classes.root}>
+    <div className={classes.root} >
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -167,23 +171,11 @@ export default function Bar() {
           <Typography className={classes.title} variant="h6" noWrap>
             El Salvador
           </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
+          <Search container={translateIcon} />
           <IconButton aria-label="Language" edge="end" color="inherit" 
            aria-controls="lang-menu" aria-haspopup="true" onClick={openLanguageMenu}
            >
-            <TranslateIcon />
+            <TranslateIcon ref={translateIcon}/>
           </IconButton>
           <Menu
             id="lang-menu"
