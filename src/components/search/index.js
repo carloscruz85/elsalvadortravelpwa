@@ -189,7 +189,7 @@ export default function Search(props) {
                 <SearchIcon />
             </div>
             <InputBase
-                onClick={() => { manageClick() }}
+                // onClick={() => { manageClick() }}
                 onChange={(e) => { setSearchTerm(e.target.value) }}
 
                 placeholder="Search…"
@@ -208,16 +208,16 @@ export default function Search(props) {
                 onClose={handleClose}
                 disableAutoFocusItem={true}
             >
-                {
+                {/* {
                     results.length > 0 ? 
                     <MenuItem>
                         <b>{msg.destination}</b>
                     </MenuItem> : null
-                }
+                } */}
                 {
                     results?.map((destination, i) =>
-                        <MenuItem key={`${destination.id}_${i}`} onClick={() => { handleClose() }}>
-                            <Link to={`/destination/${Slugify(destination['title-en'])}`} dangerouslySetInnerHTML={{
+                        <MenuItem key={`${destination.id}_${i}`} onClick={() => { clearInput(); handleClose() }}>
+                            <Link to={`/${destination['type']}/${Slugify(destination['title-en'])}`} dangerouslySetInnerHTML={{
                                 __html: `${destination['title-en']}`
                             }}>
                             </Link>

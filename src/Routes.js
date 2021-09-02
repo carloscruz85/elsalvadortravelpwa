@@ -6,6 +6,7 @@ import List from './views/list'
 import Destination from './views/destination'
 import Search from './views/search'
 import Clear from './views/clear'
+import Service from './views/service'
 import DataProvider from './context/context'
 import Loader from './components/loader'
 import axios from 'axios'
@@ -67,11 +68,11 @@ function App() {
           <DataProvider>
           <Bar />
           <Container maxWidth="xl">
-            
             <Route exact path="/" component={Home} />
             <Route exact path="/section/:section" component={Section} />
             <Route exact path="/list/" component={List} />
             <Route exact path="/destination/:destination" component={Destination} />
+            <Route exact path="/service/:service" component={Service} />
             <Route exact path="/search" component={Search} />
             <Route exact path="/clear" component={Clear} />
             </Container>
