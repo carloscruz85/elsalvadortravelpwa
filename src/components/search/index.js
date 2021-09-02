@@ -9,6 +9,7 @@ import Dialog from 'components/dialog'
 import { Link } from 'react-router-dom'
 
 import { useStore } from '../../store/store'
+import Translate from 'logic/translate';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -149,8 +150,8 @@ export default function Search(props) {
     const manageClick = () => {
         
         if( field !== null ){
-            console.log(`Field: ${field.current.value}`);
-            // search(field.current.value)
+            // console.log(`Field: ${field.current.value}`);
+            search(field.current.value)
         }
     }
 
@@ -180,17 +181,14 @@ export default function Search(props) {
                 onClose={handleClose}
                 disableAutoFocusItem={true}
             >
+
                 {
                     results?.map((destination, i) =>
-                        
                         <MenuItem key={`${destination.id}_${i}`} onClick={()=>{handleClose()}}>
-                            
                             <Link to={`/destination/${Slugify(destination['title-en'])}`} dangerouslySetInnerHTML={{
                                 __html: `${destination['title-en']}`
                             }}>
-                                
                             </Link>
-            
                         </MenuItem>)
                 }
             </Menu>
@@ -199,3 +197,5 @@ export default function Search(props) {
 
     );
 }
+
+
