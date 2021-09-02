@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
@@ -30,87 +30,173 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ControlledAccordions(props) {
 
-  const { services, experiences } = useStore()
+  const { services, experiences, lang } = useStore()
 
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
+  const [innerExperiences, setInnerExperiences] = useState([])
+  const [innerFood, setInnerFood] = useState([])
+  const [innerLodging, setInnerLodging] = useState([])
+
+  useEffect(() => {
+    //experiences
+    setInnerExperiences(
+      experiences.filter(
+        service => {
+          return props.experiences[0].split(",").includes(service.id.toString())
+        
+      }
+    ));
+
+    //food
+    setInnerFood(
+      services.filter(service => props.food.split(",").includes(service.id.toString()))
+    );
+
+    //lodging
+    setInnerLodging(
+      services.filter(service => props.lodging.split(",").includes(service.id.toString()))
+    );
+
+  }, [experiences, props.experiences, lang])
+
+  const baseMsg =   {
+    experience: {
+      title: 'Experience',
+      subTitle: 'What to do'
+    },
+    food: {
+      title: 'Food',
+      subTitle: 'Where to eat?'
+    },
+    lodging: {
+      title: 'Lodging',
+      subTitle: 'Where to sleep?'
+    }
+  }
+
+  const [msg, setMsg] = useState(
+    baseMsg
+  )
+
+  useEffect(() => {
+    switch (lang) {
+      case 'es':
+        setMsg(
+          {
+            ...msg,
+            experience: {
+              title: 'Experiencia',
+              subTitle: '¿Qué hacer?'
+            },
+            food:{
+              title: 'Alimentación',
+              subTitle: '¿Dónde comer?'
+            },
+            lodging: {
+              title: 'Alojamiento',
+              subTitle: '¿Dónde Dormir'
+            }
+          }
+         )
+        break;
+    
+      default:
+        setMsg(
+          msg
+        )
+        break;
+    }
+    
+ 
+  }, [lang])
+
   return (
     <div className={classes.root}>
 
-      <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+      {
+        innerFood.length ? 
+        <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1bh-content"
           id="panel1bh-header"
         >
-          <Typography className={classes.heading}> {Translate(['Food', 'Alimentación'])} </Typography>
+          <Typography className={classes.heading}>
+            {msg.food.title}
+            </Typography>
           <Typography className={classes.secondaryHeading}>
-            {Translate(['Where to eat?', '¿Dónde comer?'])}
+            {msg.food.subTitle}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
 
           <div>
-            {services.filter(service => props.food.split(",").includes(service.id.toString())).map((s) => <Service service={s} key={s.id} simple={false}/>)}
+            {innerFood.map((s) => <Service service={s} key={s.id} simple={false} />)}
           </div>
 
 
         </AccordionDetails>
       </Accordion>
+      : null
+      }
 
-      <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+      {
+        innerLodging.length ? 
+        <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel2bh-content"
           id="panel2bh-header"
         >
           <Typography className={classes.heading}>
-            {Translate(['Lodging', 'Hospedaje'])}
+            {msg.lodging.title}
           </Typography>
           <Typography className={classes.secondaryHeading}>
-            {Translate(['Where to sleep?', '¿Dónde dormir?'])}
+            {msg.lodging.subTitle}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
 
 
           <div>
-            {services.filter(service => props.lodging.split(",").includes(service.id.toString())).map((s) => <Service service={s} key={s.id} simple={false} />)}
+            {innerLodging.map((s) => <Service service={s} key={s.id} simple={false} />)}
           </div>
 
         </AccordionDetails>
       </Accordion>
+        : null
+      }
 
-      {experiences.lenght > 0 ? 
-            <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
+      {
+        innerExperiences.length ?
+          <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel3bh-content"
               id="panel3bh-header"
             >
               <Typography className={classes.heading}>
-                {Translate(['Experiences', 'Experiencias'])}
-                </Typography>
-              <Typography className={classes.secondaryHeading}>
-                {Translate(['What to do?', '¿Qué hacer?'])}
+                {msg.experience.title}
               </Typography>
-    
+              <Typography className={classes.secondaryHeading}>
+                {msg.experience.subTitle}
+              </Typography>
+
             </AccordionSummary>
             <AccordionDetails>
-              <div style={{width: '100%'}}>
-              {experiences.filter(service => { return props.experiences[0].split(",").includes(service.id.toString()) }).map((s) => <Experience experience={s} key={s.id} simple={true} />)}
+              <div style={{ width: '100%' }}>
+                {innerExperiences.map((s) => <Experience experience={s} key={s.id} simple={true} />)}
               </div>
             </AccordionDetails>
           </Accordion>
-      : null}
-
-
-
+          : null
+      }
     </div>
   );
 }

@@ -88,11 +88,15 @@ export default function Bar() {
       setTerms(Object.entries(dataLocal.terms))
       // console.log(dataLocal.destinations);
       setDestinations( Object.entries(dataLocal.destinations).reduce( (a,c) => {  
+        const data = c[1]
+        data['type'] = 'destination'
         a.push(c[1])
         return a
       },[] ) )
 
       setExperiences( Object.entries(dataLocal.experiences).reduce( (a,c) => {  
+        const data = c[1]
+        data['type'] = 'experience'
         a.push(c[1])
         return a
       },[] ) )
@@ -100,6 +104,9 @@ export default function Bar() {
       setServices( Object.entries(dataLocal.services).reduce( (a,c) => { 
         const data = c[1] 
         data.id=parseInt(c[0])
+        data['title-en'] = c[1].title
+        data['title-es'] = c[1].title
+        data['type'] = 'service'
         a.push(c[1])
         return a
       },[] ) )

@@ -9,7 +9,7 @@ import Dialog from 'components/dialog'
 import { Link } from 'react-router-dom'
 
 import { useStore } from '../../store/store'
-// import Translate from 'logic/translate';
+import Translate from 'logic/translate';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Search(props) {
     const classes = useStyles();
-    const { experiences, destinations, lang } = useStore()
+    const { experiences, destinations, lang, services } = useStore()
     const field = useRef(null)
     const [dialog, setDialog] = useState(
         {
@@ -90,9 +90,6 @@ export default function Search(props) {
         setAnchorEl(null);
     };
 
-
-    
-
     useEffect(() => {
         // console.log(`searchTerm change: ${searchTerm}`);
         const delayDebounceFn = setTimeout(() => {
@@ -100,7 +97,7 @@ export default function Search(props) {
             if (searchTerm.length){
                 // console.log(`searchTerm length make sense: ${searchTerm.length}`);
 
-                const innerResults = destinations.concat(experiences)
+                const innerResults = destinations.concat(experiences.concat(services))
                 .filter(d => {
                     // console.log(Slugify(d['title-en']).includes( Slugify(hint) ));
                     if (
@@ -140,13 +137,13 @@ export default function Search(props) {
         }, 1000)
 
         return () => clearTimeout(delayDebounceFn)
-    }, [searchTerm, destinations, experiences])
+    }, [lang, searchTerm, destinations, experiences])
 
 
     useEffect(() => {
         if(results.length) setAnchorEl(props.container.current); // show menu
  
-    }, [results])
+    }, [results, props.container])
 
 
     const clearInput = () => {
@@ -158,6 +155,33 @@ export default function Search(props) {
         if(results.length) setAnchorEl(props.container.current); // show menu
     }
 
+    const msgBase = {
+        destination: 'Destination',
+        food: 'Food',
+        lodging: 'Lodging',
+        experience: 'Experience'
+    }
+
+    const [msg, setMsg] = useState(msgBase)
+    
+    useEffect(() => {
+        switch (lang) {
+            case 'es':
+                setMsg({
+                    destination: 'Destinos',
+                    food: 'Alimentación',
+                    lodging: 'Hospedaje',
+                    experience: 'Experiencias'
+                })
+                break;
+        
+            default:
+                setMsg(
+                    msgBase
+                )
+                break;
+        }
+    }, [lang])
 
     return (
         <div className={classes.search} >
@@ -165,7 +189,7 @@ export default function Search(props) {
                 <SearchIcon />
             </div>
             <InputBase
-                onClick={() => { manageClick() }}
+                // onClick={() => { manageClick() }}
                 onChange={(e) => { setSearchTerm(e.target.value) }}
 
                 placeholder="Search…"
@@ -185,14 +209,15 @@ export default function Search(props) {
                 disableAutoFocusItem={true}
             >
                 {/* {
-                    results.length > 0 ? <MenuItem>
-                        <b>{Translate(['Destinations', 'Destinos'])}</b>
+                    results.length > 0 ? 
+                    <MenuItem>
+                        <b>{msg.destination}</b>
                     </MenuItem> : null
                 } */}
                 {
                     results?.map((destination, i) =>
-                        <MenuItem key={`${destination.id}_${i}`} onClick={() => { handleClose() }}>
-                            <Link to={`/destination/${Slugify(destination['title-en'])}`} dangerouslySetInnerHTML={{
+                        <MenuItem key={`${destination.id}_${i}`} onClick={() => { clearInput(); handleClose() }}>
+                            <Link to={`/${destination['type']}/${Slugify(destination['title-en'])}`} dangerouslySetInnerHTML={{
                                 __html: `${destination['title-en']}`
                             }}>
                             </Link>

@@ -9,13 +9,13 @@ import { Paper } from '@material-ui/core'
 import Services from 'components/services'
 
 const Destination = (props) => {
-    const { destinations } = useStore()
+    const { destinations, experiences } = useStore()
     const [destination, setDestination] = useState(null)
     const [carrousel, setCarrousel] = useState(null)
     const { lang } = useStore()
     useEffect(() => {
         if (destinations.length) {
-            setDestination(destinations.find(d => slugify(d['title-en']) === props.match.params.destination
+            setDestination(destinations.concat(experiences).find(d => slugify(d['title-en']) === props.match.params.destination
             ));
         }
     }, [destinations, props.match.params.destination])
