@@ -7,12 +7,12 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 export default function AlertDialog(props) {
-    const {title, msg, close, show, f} = props
-  // const [open, setOpen] = React.useState(true);
+    const {title, msg, close, show, f, clear} = props
+  const [open, setOpen] = React.useState(true);
 
-  // const handleClickOpen = () => {
-  //   setOpen(true);
-  // };
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
   const handleClose = () => {
     f(
@@ -23,6 +23,7 @@ export default function AlertDialog(props) {
             close: ''
         }
     )
+    clear();
   };
 
 //   console.log(f);
@@ -31,7 +32,7 @@ export default function AlertDialog(props) {
     <div>
       <Dialog
         open={show}
-        // onClose={handleClose}
+        onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >

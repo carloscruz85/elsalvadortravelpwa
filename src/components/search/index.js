@@ -66,6 +66,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Search(props) {
+    const classes = useStyles();
+    const { experiences, destinations, lang } = useStore()
+    const field = useRef(null)
     const [dialog, setDialog] = useState(
         {
             title: '',
@@ -74,12 +77,10 @@ export default function Search(props) {
             close: ''
         }
     )
-
     const [results, setResults] = useState([])
     const [innerHint, setInnerHint] = useState('')
-    const { experiences, destinations, lang } = useStore()
-    const field = useRef(null)
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('')
 
     const handleClick = (el) => {
         setAnchorEl(el);
@@ -89,19 +90,18 @@ export default function Search(props) {
         setAnchorEl(null);
     };
 
-    const classes = useStyles();
-
     const search = (hint) => {
         setInnerHint(hint)
-        if( hint.length > 0 )
-        setResults(destinations.concat(experiences)
-            .filter(d => {
-                // console.log(Slugify(d['title-en']).includes( Slugify(hint) ));
-                if (
-                    Slugify(d['title-en']).includes(Slugify(hint))
-                ) return d
-            })
-        )
+        if (hint.length > 0)
+            setResults(destinations.concat(experiences)
+                .filter(d => {
+                    // console.log(Slugify(d['title-en']).includes( Slugify(hint) ));
+                    if (
+                        Slugify(d['title-en']).includes(Slugify(hint))
+                    ) return d;
+                    else return null
+                })
+            )
     }
 
     useEffect(() => {
@@ -137,7 +137,7 @@ export default function Search(props) {
         }
     }, [results])
 
-    const [searchTerm, setSearchTerm] = useState('')
+    
 
     useEffect(() => {
         const delayDebounceFn = setTimeout(() => {
@@ -148,23 +148,26 @@ export default function Search(props) {
     }, [searchTerm])
 
     const manageClick = () => {
-        
-        if( field !== null ){
+
+        if (field !== null) {
             // console.log(`Field: ${field.current.value}`);
             search(field.current.value)
         }
     }
 
-    return (
+    const clearInput = () => {
+        if( field ) field.current.value = ''
+    }
 
+    return (
         <div className={classes.search} >
             <div className={classes.searchIcon}>
                 <SearchIcon />
             </div>
             <InputBase
-            onClick={ ()=>{ manageClick() } }
+                onClick={() => { manageClick() }}
                 onChange={(e) => { setSearchTerm(e.target.value) }}
-               
+
                 placeholder="Search…"
                 classes={{
                     root: classes.inputRoot,
@@ -181,10 +184,14 @@ export default function Search(props) {
                 onClose={handleClose}
                 disableAutoFocusItem={true}
             >
-
+                {/* {
+                    results.length > 0 ? <MenuItem>
+                        <b>{Translate(['Destinations', 'Destinos'])}</b>
+                    </MenuItem> : null
+                } */}
                 {
                     results?.map((destination, i) =>
-                        <MenuItem key={`${destination.id}_${i}`} onClick={()=>{handleClose()}}>
+                        <MenuItem key={`${destination.id}_${i}`} onClick={() => { handleClose() }}>
                             <Link to={`/destination/${Slugify(destination['title-en'])}`} dangerouslySetInnerHTML={{
                                 __html: `${destination['title-en']}`
                             }}>
@@ -192,7 +199,7 @@ export default function Search(props) {
                         </MenuItem>)
                 }
             </Menu>
-            <Dialog show={dialog.show} title={dialog.title} msg={dialog.msg} close={dialog.close} f={setDialog} />
+            <Dialog show={dialog.show} title={dialog.title} msg={dialog.msg} close={dialog.close} f={setDialog} clear={clearInput}/>
         </div>
 
     );
