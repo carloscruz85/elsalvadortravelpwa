@@ -9,7 +9,7 @@ import Dialog from 'components/dialog'
 import { Link } from 'react-router-dom'
 
 import { useStore } from '../../store/store'
-import Translate from 'logic/translate';
+// import Translate from 'logic/translate';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -78,39 +78,39 @@ export default function Search(props) {
         }
     )
     const [results, setResults] = useState([])
-    const [innerHint, setInnerHint] = useState('')
+    // const [innerHint, setInnerHint] = useState('')
     const [anchorEl, setAnchorEl] = useState(null);
     const [searchTerm, setSearchTerm] = useState('')
 
-    const handleClick = (el) => {
-        setAnchorEl(el);
-    };
+    // const handleClick = (el) => {
+    //     setAnchorEl(el);
+    // };
 
     const handleClose = () => {
         setAnchorEl(null);
     };
 
-    const search = (hint) => {
-        setInnerHint(hint)
-        if (hint.length > 0)
-            setResults(destinations.concat(experiences)
+
+    
+
+    useEffect(() => {
+        // console.log(`searchTerm change: ${searchTerm}`);
+        const delayDebounceFn = setTimeout(() => {
+            // search(searchTerm)
+            if (searchTerm.length){
+                // console.log(`searchTerm length make sense: ${searchTerm.length}`);
+
+                const innerResults = destinations.concat(experiences)
                 .filter(d => {
                     // console.log(Slugify(d['title-en']).includes( Slugify(hint) ));
                     if (
-                        Slugify(d['title-en']).includes(Slugify(hint))
+                        Slugify(d['title-en']).includes(Slugify(searchTerm))
                     ) return d;
                     else return null
                 })
-            )
-    }
 
-    useEffect(() => {
-        if (props.container.current) {
-            if (results.length > 0) {
-                handleClick(props.container.current)
-            }
-            else {
-                if (innerHint.length > 0) {
+                // console.log(innerResults);
+                if(!innerResults.length){
                     switch (lang) {
                         case 'es':
                             setDialog({
@@ -120,7 +120,7 @@ export default function Search(props) {
                                 close: 'Cerrar'
                             })
                             break;
-
+    
                         default:
                             setDialog({
                                 title: 'No results',
@@ -130,34 +130,34 @@ export default function Search(props) {
                             })
                             break;
                     }
+                }else{
+                    setResults(innerResults)
                 }
 
-
+                
             }
-        }
-    }, [results])
-
-    
-
-    useEffect(() => {
-        const delayDebounceFn = setTimeout(() => {
-            search(searchTerm)
+           
         }, 1000)
 
         return () => clearTimeout(delayDebounceFn)
-    }, [searchTerm])
+    }, [searchTerm, destinations, experiences])
 
-    const manageClick = () => {
 
-        if (field !== null) {
-            // console.log(`Field: ${field.current.value}`);
-            search(field.current.value)
-        }
-    }
+    useEffect(() => {
+        if(results.length) setAnchorEl(props.container.current); // show menu
+ 
+    }, [results])
+
 
     const clearInput = () => {
         if( field ) field.current.value = ''
     }
+
+    const manageClick = () => {
+        // console.log(`Manage Click on input`);
+        if(results.length) setAnchorEl(props.container.current); // show menu
+    }
+
 
     return (
         <div className={classes.search} >
