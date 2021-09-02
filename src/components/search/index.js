@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
@@ -76,9 +76,8 @@ export default function Search(props) {
 
     const [results, setResults] = useState([])
     const [innerHint, setInnerHint] = useState('')
-
     const { experiences, destinations, lang } = useStore()
-
+    const field = useRef(null)
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     const handleClick = (el) => {
@@ -93,6 +92,7 @@ export default function Search(props) {
 
     const search = (hint) => {
         setInnerHint(hint)
+        if( hint.length > 0 )
         setResults(destinations.concat(experiences)
             .filter(d => {
                 // console.log(Slugify(d['title-en']).includes( Slugify(hint) ));
@@ -146,20 +146,31 @@ export default function Search(props) {
         return () => clearTimeout(delayDebounceFn)
     }, [searchTerm])
 
+    const manageClick = () => {
+        
+        if( field !== null ){
+            console.log(`Field: ${field.current.value}`);
+            // search(field.current.value)
+        }
+    }
+
     return (
 
-        <div className={classes.search}>
+        <div className={classes.search} >
             <div className={classes.searchIcon}>
                 <SearchIcon />
             </div>
             <InputBase
+            onClick={ ()=>{ manageClick() } }
                 onChange={(e) => { setSearchTerm(e.target.value) }}
+               
                 placeholder="Search…"
                 classes={{
                     root: classes.inputRoot,
                     input: classes.inputInput,
                 }}
                 inputProps={{ 'aria-label': 'search' }}
+                inputRef={field}
             />
             <Menu
                 id="results"
@@ -172,7 +183,7 @@ export default function Search(props) {
                 {
                     results?.map((destination, i) =>
                         
-                        <MenuItem key={`${destination.id}_${i}`} >
+                        <MenuItem key={`${destination.id}_${i}`} onClick={()=>{handleClose()}}>
                             
                             <Link to={`/destination/${Slugify(destination['title-en'])}`} dangerouslySetInnerHTML={{
                                 __html: `${destination['title-en']}`
