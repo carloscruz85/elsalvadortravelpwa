@@ -140,13 +140,13 @@ export default function Search(props) {
         }, 1000)
 
         return () => clearTimeout(delayDebounceFn)
-    }, [searchTerm, destinations, experiences])
+    }, [lang, searchTerm, destinations, experiences])
 
 
     useEffect(() => {
         if(results.length) setAnchorEl(props.container.current); // show menu
  
-    }, [results])
+    }, [results, props.container])
 
 
     const clearInput = () => {
