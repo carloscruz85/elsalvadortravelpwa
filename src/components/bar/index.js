@@ -100,6 +100,8 @@ export default function Bar() {
       setServices( Object.entries(dataLocal.services).reduce( (a,c) => { 
         const data = c[1] 
         data.id=parseInt(c[0])
+        data['title-en'] = c[1].title
+        data['title-es'] = c[1].title
         a.push(c[1])
         return a
       },[] ) )

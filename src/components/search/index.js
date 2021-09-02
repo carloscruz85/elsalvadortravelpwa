@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Search(props) {
     const classes = useStyles();
-    const { experiences, destinations, lang } = useStore()
+    const { experiences, destinations, lang, services } = useStore()
     const field = useRef(null)
     const [dialog, setDialog] = useState(
         {
@@ -90,9 +90,6 @@ export default function Search(props) {
         setAnchorEl(null);
     };
 
-
-    
-
     useEffect(() => {
         // console.log(`searchTerm change: ${searchTerm}`);
         const delayDebounceFn = setTimeout(() => {
@@ -100,7 +97,7 @@ export default function Search(props) {
             if (searchTerm.length){
                 // console.log(`searchTerm length make sense: ${searchTerm.length}`);
 
-                const innerResults = destinations.concat(experiences)
+                const innerResults = destinations.concat(experiences.concat(services))
                 .filter(d => {
                     // console.log(Slugify(d['title-en']).includes( Slugify(hint) ));
                     if (
