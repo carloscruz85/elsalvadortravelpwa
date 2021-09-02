@@ -35,7 +35,7 @@ const Service = (props) => {
 
     return (
         <div className={classes.root}>
-            <Grid container spacing={3}>
+            <Grid>
                 <Grid item xs={12}>
                     {
                         service ? <ServiceCompornent service={service} simple={true} /> : null
