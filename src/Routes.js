@@ -7,6 +7,7 @@ import Destination from './views/destination'
 import Search from './views/search'
 import Clear from './views/clear'
 import Service from './views/service'
+import Experience from 'views/experience'
 import DataProvider from './context/context'
 import Loader from './components/loader'
 import axios from 'axios'
@@ -73,6 +74,7 @@ function App() {
             <Route exact path="/list/" component={List} />
             <Route exact path="/destination/:destination" component={Destination} />
             <Route exact path="/service/:service" component={Service} />
+            <Route exact path="/experience/:experience" component={Experience} />
             <Route exact path="/search" component={Search} />
             <Route exact path="/clear" component={Clear} />
             </Container>
