@@ -56,6 +56,14 @@ export default function ControlledAccordions(props) {
     //food
     setInnerFood(
       services.filter(service => props.food.split(",").includes(service.id.toString()))
+      .sort( (a,b) => { 
+        let aa = (parseInt(a.rnt) + parseInt(a.bio))
+        let bb = parseInt(b.rnt) + parseInt(b.bio)
+        // console.log(a, aa, b, bb); 
+        if( aa >= bb  ) 
+        return -1 
+        else return 1
+      } )
     );
 
     //lodging

@@ -25,7 +25,7 @@ const useStyles = makeStyles({
 });
 
 const Service = (props) => {
-    console.log(props.service);
+    // console.log(props.service);
     let img = 'https://elsalvador.travel/wp-content/themes/parallelus-go-explore-21/blueprint-parallelus/assets/img/enterprices.jpg'
     if (props.service.details.logo_empresa) img = `https://elsalvador.travel/wp-content/themes/parallelus-go-explore-21/assets/images/rnt/${props.service.details.logo_empresa}`
     const classes = useStyles();
