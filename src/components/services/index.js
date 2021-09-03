@@ -44,6 +44,7 @@ export default function ControlledAccordions(props) {
   const [innerLodging, setInnerLodging] = useState([])
 
   useEffect(() => {
+    // console.log(`try set services`);
     //experiences
     setInnerExperiences(
       experiences.filter(
@@ -93,11 +94,12 @@ export default function ControlledAccordions(props) {
   )
 
   useEffect(() => {
+    // console.log(`Try setting msgs to display in titles`);
     switch (lang) {
       case 'es':
         setMsg(
           {
-            ...msg,
+          
             experience: {
               title: 'Experiencia',
               subTitle: '¿Qué hacer?'
@@ -116,13 +118,26 @@ export default function ControlledAccordions(props) {
     
       default:
         setMsg(
-          msg
+          {
+            experience: {
+              title: 'Experience',
+              subTitle: 'What to do'
+            },
+            food: {
+              title: 'Food',
+              subTitle: 'Where to eat?'
+            },
+            lodging: {
+              title: 'Lodging',
+              subTitle: 'Where to sleep?'
+            }
+          }
         )
         break;
     }
     
  
-  }, [lang, msg])
+  }, [lang])
 
   return (
     <div className={classes.root}>
