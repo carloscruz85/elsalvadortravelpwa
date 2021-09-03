@@ -10,6 +10,8 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import translate from 'logic/translate'
 import './index.scss'
+import clearSocialMedia from 'logic/clearSocialMedia';
+
 const useStyles = makeStyles({
     root: {
         maxWidth: '100%',
@@ -21,7 +23,7 @@ const useStyles = makeStyles({
 });
 
 const Service = (props) => {
-    console.log(props.service);
+    // console.log(props.service);
     let img = 'https://elsalvador.travel/wp-content/themes/parallelus-go-explore-21/blueprint-parallelus/assets/img/enterprices.jpg'
     if(props.service.details.logo_empresa) img = `https://elsalvador.travel/wp-content/themes/parallelus-go-explore-21/assets/images/rnt/${props.service.details.logo_empresa}`
     const classes = useStyles();
@@ -57,12 +59,12 @@ const Service = (props) => {
                 </Button> : null
                 }
                 { props.service.details.instagram ? <Button size="small" color="primary">
-                    <a rel="noreferrer" target="_blank" href={`${props.service.details.instagram}`}>Instagram</a>
+                    <a rel="noreferrer" target="_blank" href={clearSocialMedia('instagram',props.service.details.instagram)}>  Instagram</a>
                 </Button> : null
                 }
                 
                 { props.service.details.facebook ? <Button size="small" color="primary">
-                    <a rel="noreferrer" target="_blank" href={`${props.service.details.facebook}`}>Facebook</a>
+                    <a rel="noreferrer" target="_blank" href={clearSocialMedia('facebook',props.service.details.facebook)}> Facebook</a>
                 </Button> : null
                 }
             </CardActions>
