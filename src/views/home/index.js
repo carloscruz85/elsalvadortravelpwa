@@ -78,7 +78,7 @@ const App = () => {
               const img = require('../../assets/images/' + term.slug + '.png');
               return (
                 <Grid container item key={iimg} sm={2} xs={6}>
-                  <Link to={ term.id !== -1 ? '/section/' : '/' + term.slug} className="icon-container">
+                  <Link to={ term.id !== -1 ? '/section/' + term.slug : '/' + term.slug} className="icon-container">
                     <Avatar variant="square" alt={term['title-' + lang]} src={img['default']} className={classes.large} />
                     <Typography variant='h5' gutterBottom align='center'>
                       {term['title-' + lang]}
