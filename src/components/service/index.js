@@ -4,7 +4,7 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-// import CardMedia from '@material-ui/core/CardMedia';
+import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -20,12 +20,21 @@ const useStyles = makeStyles({
 });
 
 const Service = (props) => {
-    // console.log(props.service);
+    console.log(props.service);
+    let img = 'https://elsalvador.travel/wp-content/themes/parallelus-go-explore-21/blueprint-parallelus/assets/img/enterprices.jpg'
+    if(props.service.details.logo_empresa) img = `https://elsalvador.travel/wp-content/themes/parallelus-go-explore-21/assets/images/rnt/${props.service.details.logo_empresa}`
     const classes = useStyles();
     return (
         <>
         <Card className={classes.root}>
             <CardActionArea>
+            <CardMedia
+          component="img"
+          alt={props.service.title}
+          height="140"
+          image={img}
+          title= {props.service.title}
+        />
                 <CardContent>
                      <Typography gutterBottom variant="h5" component="h2" dangerouslySetInnerHTML={{
                                 __html: `${props.service.title}`

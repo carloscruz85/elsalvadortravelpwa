@@ -18,3 +18,7 @@
 }
 
 
+.icon-container{
+    width: 100%;
+    @include center-center()
+}
