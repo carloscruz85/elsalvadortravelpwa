@@ -6,7 +6,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useStore } from 'store/store'
-import Translate from 'logic/translate'
+// import Translate from 'logic/translate'
 
 import Service from 'components/service'
 import Experience from 'components/experience';
@@ -63,7 +63,7 @@ export default function ControlledAccordions(props) {
       services.filter(service => props.lodging.split(",").includes(service.id.toString()))
     );
 
-  }, [experiences, props.experiences, lang])
+  }, [experiences, props.experiences, lang, props.food, props.lodging, services])
 
   const baseMsg =   {
     experience: {
@@ -114,7 +114,7 @@ export default function ControlledAccordions(props) {
     }
     
  
-  }, [lang])
+  }, [lang, msg])
 
   return (
     <div className={classes.root}>

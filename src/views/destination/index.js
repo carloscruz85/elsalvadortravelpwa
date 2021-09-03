@@ -18,7 +18,7 @@ const Destination = (props) => {
             setDestination(destinations.concat(experiences).find(d => slugify(d['title-en']) === props.match.params.destination
             ));
         }
-    }, [destinations, props.match.params.destination])
+    }, [destinations, props.match.params.destination, experiences])
 
     useEffect(() => {
         if (destination) {
