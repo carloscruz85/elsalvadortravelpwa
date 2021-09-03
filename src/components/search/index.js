@@ -9,7 +9,7 @@ import Dialog from 'components/dialog'
 import { Link } from 'react-router-dom'
 
 import { useStore } from '../../store/store'
-import Translate from 'logic/translate';
+// import Translate from 'logic/translate';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -137,7 +137,7 @@ export default function Search(props) {
         }, 1000)
 
         return () => clearTimeout(delayDebounceFn)
-    }, [lang, searchTerm, destinations, experiences])
+    }, [lang, searchTerm, destinations, experiences, services])
 
 
     useEffect(() => {
@@ -150,38 +150,38 @@ export default function Search(props) {
         if( field ) field.current.value = ''
     }
 
-    const manageClick = () => {
-        // console.log(`Manage Click on input`);
-        if(results.length) setAnchorEl(props.container.current); // show menu
-    }
+    // const manageClick = () => {
+    //     // console.log(`Manage Click on input`);
+    //     if(results.length) setAnchorEl(props.container.current); // show menu
+    // }
 
-    const msgBase = {
-        destination: 'Destination',
-        food: 'Food',
-        lodging: 'Lodging',
-        experience: 'Experience'
-    }
+    // const msgBase = {
+    //     destination: 'Destination',
+    //     food: 'Food',
+    //     lodging: 'Lodging',
+    //     experience: 'Experience'
+    // }
 
-    const [msg, setMsg] = useState(msgBase)
+    // const [msg, setMsg] = useState(msgBase)
     
-    useEffect(() => {
-        switch (lang) {
-            case 'es':
-                setMsg({
-                    destination: 'Destinos',
-                    food: 'Alimentación',
-                    lodging: 'Hospedaje',
-                    experience: 'Experiencias'
-                })
-                break;
+    // useEffect(() => {
+    //     switch (lang) {
+    //         case 'es':
+    //             setMsg({
+    //                 destination: 'Destinos',
+    //                 food: 'Alimentación',
+    //                 lodging: 'Hospedaje',
+    //                 experience: 'Experiencias'
+    //             })
+    //             break;
         
-            default:
-                setMsg(
-                    msgBase
-                )
-                break;
-        }
-    }, [lang])
+    //         default:
+    //             setMsg(
+    //                 msgBase
+    //             )
+    //             break;
+    //     }
+    // }, [lang])
 
     return (
         <div className={classes.search} >
