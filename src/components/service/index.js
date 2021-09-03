@@ -9,13 +9,14 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import translate from 'logic/translate'
-
+import './index.scss'
 const useStyles = makeStyles({
     root: {
-        maxWidth: 345,
+        maxWidth: '100%',
     },
     media: {
         height: 140,
+   
     },
 });
 
@@ -25,10 +26,11 @@ const Service = (props) => {
     if(props.service.details.logo_empresa) img = `https://elsalvador.travel/wp-content/themes/parallelus-go-explore-21/assets/images/rnt/${props.service.details.logo_empresa}`
     const classes = useStyles();
     return (
-        <>
+        <div className='service-container'>
         <Card className={classes.root}>
             <CardActionArea>
             <CardMedia
+            className={classes.media}
           component="img"
           alt={props.service.title}
           height="140"
@@ -66,7 +68,7 @@ const Service = (props) => {
             </CardActions>
         </Card>
         <Divider />
-        </>
+        </div>
     )
 }
 
