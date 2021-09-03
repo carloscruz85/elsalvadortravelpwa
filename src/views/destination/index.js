@@ -14,6 +14,7 @@ const Destination = (props) => {
     const [carrousel, setCarrousel] = useState(null)
     const { lang } = useStore()
     useEffect(() => {
+        // console.log(`try SetDestination`);
         if (destinations.length) {
             setDestination(destinations.concat(experiences).find(d => slugify(d['title-en']) === props.match.params.destination
             ));
@@ -21,6 +22,7 @@ const Destination = (props) => {
     }, [destinations, props.match.params.destination, experiences])
 
     useEffect(() => {
+        // console.log(`try setCarrousel`);
         if (destination) {
             // console.log(destination);
             setCarrousel(destination.gallery.reduce((a, c) => { a.push(c.guid); return a }, [destination.image]));

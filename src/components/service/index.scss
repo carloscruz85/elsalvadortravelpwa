@@ -5,3 +5,12 @@
     // width: 100% !important;
     margin: 1rem 0;
 }
+
+.stamps{
+    display: flex;
+    img{
+        max-width: 40px;
+        height: auto;
+        margin: 0.5rem;
+    }
+}

@@ -7,8 +7,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Slugify from 'logic/slugify'
 import Dialog from 'components/dialog'
 import { Link } from 'react-router-dom'
-
+import Stamps from 'components/stamps';
 import { useStore } from '../../store/store'
+import './index.scss'
 // import Translate from 'logic/translate';
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -97,7 +98,17 @@ export default function Search(props) {
             if (searchTerm.length){
                 // console.log(`searchTerm length make sense: ${searchTerm.length}`);
 
-                const innerResults = destinations.concat(experiences.concat(services))
+                const innerResults = destinations.concat(experiences.concat(
+                    services
+                    .sort( (a,b) => { 
+                        let aa = (parseInt(a.rnt) + parseInt(a.bio))
+                        let bb = parseInt(b.rnt) + parseInt(b.bio)
+                        // console.log(a, aa, b, bb); 
+                        if( aa >= bb  ) 
+                        return -1 
+                        else return 1
+                      } )
+                    ))
                 .filter(d => {
                     // console.log(Slugify(d['title-en']).includes( Slugify(hint) ));
                     if (
@@ -219,8 +230,11 @@ export default function Search(props) {
                         <MenuItem key={`${destination.id}_${i}`} onClick={() => { clearInput(); handleClose() }}>
                             <Link to={`/${destination['type']}/${Slugify(destination['title-en'])}`} dangerouslySetInnerHTML={{
                                 __html: `${destination['title-en']}`
-                            }}>
+                            }}> 
                             </Link>
+                            {
+                                destination.type === 'service' ? <Stamps innerClass="stamps-container" rnt={destination.rnt} bio={destination.bio} /> : null
+                            }
                         </MenuItem>)
                 }
             </Menu>
@@ -229,5 +243,3 @@ export default function Search(props) {
 
     );
 }
-
-
