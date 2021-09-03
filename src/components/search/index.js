@@ -7,8 +7,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Slugify from 'logic/slugify'
 import Dialog from 'components/dialog'
 import { Link } from 'react-router-dom'
-
+import Stamps from 'components/stamps';
 import { useStore } from '../../store/store'
+import './index.scss'
 // import Translate from 'logic/translate';
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -219,8 +220,11 @@ export default function Search(props) {
                         <MenuItem key={`${destination.id}_${i}`} onClick={() => { clearInput(); handleClose() }}>
                             <Link to={`/${destination['type']}/${Slugify(destination['title-en'])}`} dangerouslySetInnerHTML={{
                                 __html: `${destination['title-en']}`
-                            }}>
+                            }}> 
                             </Link>
+                            {
+                                destination.type === 'service' ? <Stamps innerClass="stamps-container" rnt={destination.rnt} bio={destination.bio} /> : null
+                            }
                         </MenuItem>)
                 }
             </Menu>
@@ -229,5 +233,3 @@ export default function Search(props) {
 
     );
 }
-
-
