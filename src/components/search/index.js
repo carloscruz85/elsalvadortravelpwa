@@ -98,7 +98,17 @@ export default function Search(props) {
             if (searchTerm.length){
                 // console.log(`searchTerm length make sense: ${searchTerm.length}`);
 
-                const innerResults = destinations.concat(experiences.concat(services))
+                const innerResults = destinations.concat(experiences.concat(
+                    services
+                    .sort( (a,b) => { 
+                        let aa = (parseInt(a.rnt) + parseInt(a.bio))
+                        let bb = parseInt(b.rnt) + parseInt(b.bio)
+                        // console.log(a, aa, b, bb); 
+                        if( aa >= bb  ) 
+                        return -1 
+                        else return 1
+                      } )
+                    ))
                 .filter(d => {
                     // console.log(Slugify(d['title-en']).includes( Slugify(hint) ));
                     if (
