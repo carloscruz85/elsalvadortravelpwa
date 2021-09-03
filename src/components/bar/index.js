@@ -85,7 +85,12 @@ export default function Bar() {
     if (data.length === 0) {
       // console.log('no data',dataLocal)
       setData(dataLocal)
-      setTerms(Object.entries(dataLocal.terms))
+      setTerms(Object.entries(dataLocal.terms).concat(
+        [
+          ["About",{"id":-1,"slug":"about","title-en":"About El Salvador","title-es":"Sobre El Salvador","childs":[]}],
+          ["Biosecurity",{"id":-1,"slug":"biosecurity","title-en":"Biosecurity","title-es":"Bioseguridad","childs":[]}]
+        ]
+      ))
       // console.log(dataLocal.destinations);
       setDestinations( Object.entries(dataLocal.destinations).reduce( (a,c) => {  
         const data = c[1]

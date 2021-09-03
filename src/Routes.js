@@ -14,6 +14,8 @@ import axios from 'axios'
 // import Menu from './components/menu';
 import Bar from './components/bar'
 import Container from '@material-ui/core/Container';
+import About from "views/about";
+import Biosecurity from "views/biosecurity";
 
 // import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 
@@ -70,6 +72,8 @@ function App() {
           <Bar />
           <Container maxWidth="xl">
             <Route exact path="/" component={Home} />
+            <Route exact path="/about" component={About} />
+            <Route exact path="/biosecurity" component={Biosecurity} />
             <Route exact path="/section/:section" component={Section} />
             <Route exact path="/list/" component={List} />
             <Route exact path="/destination/:destination" component={Destination} />
@@ -77,6 +81,7 @@ function App() {
             <Route exact path="/experience/:experience" component={Experience} />
             <Route exact path="/search" component={Search} />
             <Route exact path="/clear" component={Clear} />
+           
             </Container>
           </DataProvider>
         </Switch>
