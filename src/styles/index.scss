@@ -85,3 +85,12 @@ a{
   text-decoration: none !important;
   color: $cyan !important;
 }
+
+.basic-text{
+  line-height: 1.7rem !important;
+
+    li{
+      margin: 1rem 0;
+    }
+  
+}
